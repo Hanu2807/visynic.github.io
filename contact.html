@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VISYNIC | Contact</title>
+  <meta name="description" content="Contact VISYNIC for video editing and post-production." />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+
+    :root{
+      --bg:#070a12;
+      --card:#0d1324;
+      --text:#e8ecff;
+      --muted:#a7b0d6;
+      --accent:#4a7dff;
+      --accent2:#ff3d57;
+      --border: rgba(255,255,255,0.10);
+      --shadow: 0 18px 40px rgba(0,0,0,0.55);
+      --font-body: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --font-heading: "Space Grotesk", "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:var(--font-body);background: radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%),
+      radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%),
+      repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px),
+      var(--bg);
+      color:var(--text);
+      scroll-behavior:smooth;
+    }
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px, 92vw); margin:0 auto;}
+
+    nav{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(16px);
+      background: rgba(7,10,18,0.55);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; gap:10px; align-items:center;
+      font-weight:800; letter-spacing:0.6px;
+      font-family: var(--font-heading);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:99px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 0 30px rgba(74,125,255,0.45);
+    }
+    .nav-links{display:flex; gap:18px; align-items:center; font-weight:600; color:var(--muted)}
+    .nav-links a{padding:8px 10px;border-radius:12px}
+    .nav-links a:hover{background: rgba(255,255,255,0.06); color:var(--text)}
+    .cta{
+      padding:10px 14px; border-radius:14px;
+      background: linear-gradient(135deg, rgba(74,125,255,0.95), rgba(255,61,87,0.9));
+      border:0; color:white; font-weight:800;
+      cursor:pointer;
+      box-shadow: 0 14px 30px rgba(74,125,255,0.18);
+      transition: transform .15s ease;
+    }
+    .cta:hover{transform: translateY(-1px)}
+
+    header{padding:60px 0 20px}
+    h1{margin:0 0 8px; font-family:var(--font-heading)}
+    h2, h3{font-family: var(--font-heading)}
+    .subtitle{color:var(--muted); max-width:70ch; line-height:1.6}
+
+    .card{
+      background: rgba(13,19,36,0.6);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding:18px;
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+      margin-bottom:18px;
+    }
+    .contact-grid{
+      display:grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap:16px;
+      align-items:start;
+    }
+    .contact-options{
+      display:grid;
+      gap:12px;
+    }
+    .option-card{
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:14px;
+      background: rgba(255,255,255,0.04);
+    }
+    .option-card b{display:block; margin-bottom:6px}
+
+    form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      outline:none;
+      font-weight:600;
+    }
+    textarea{grid-column: 1 / -1; min-height:120px; resize:vertical}
+    .form-actions{
+      grid-column: 1 / -1;
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .note{
+      color: var(--muted);
+      font-size:13px;
+      font-weight:700;
+    }
+    .btn{
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      font-weight:800;
+      cursor:pointer;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,0.07)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(74,125,255,0.95), rgba(74,125,255,0.55));
+      border-color: rgba(74,125,255,0.35);
+    }
+
+    @media (max-width: 900px){
+      .contact-grid{grid-template-columns:1fr}
+      form{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="dot"></div>
+          <div>VISYNIC</div>
+        </div>
+
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="work.html">Projects</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button class="cta" onclick="location.href='contact.html'">Hire VISYNIC</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <header class="container">
+    <h1>Contact</h1>
+    <p class="subtitle">
+      Send your brief and VISYNIC will reply with timeline, scope, and pricing.
+      You can also email directly.
+    </p>
+  </header>
+
+  <main class="container">
+    <div class="contact-grid">
+      <div class="contact-options">
+        <div class="card">
+          <h3>Quick Contact</h3>
+          <p class="subtitle">Choose the fastest way to reach VISYNIC.</p>
+
+          <div class="option-card">
+            <b>Instagram DM</b>
+            <p class="note">Best for quick replies and references.</p>
+            <div class="hero-actions" style="margin-top:10px;">
+              <button class="btn red" onclick="openLink('https://www.instagram.com/visynic?igsh=Nmk1cjVpOGZmMTVr', true)">Open Instagram</button>
+            </div>
+          </div>
+
+          <div class="option-card">
+            <b>Email</b>
+            <p class="note">visynicofficial@gmail.com</p>
+            <p class="note">himanshusharmaaofficial@gmail.com</p>
+            <div class="hero-actions" style="margin-top:10px;">
+              <button class="btn" onclick="copyEmail()">Copy VISYNIC Email</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Project Brief</h3>
+        <p class="subtitle">Share your content type, duration, reference style, and deadline.</p>
+        <form id="contactForm">
+          <input id="name" placeholder="Your Name" required />
+          <input id="email" placeholder="Your Email (optional)" />
+          <textarea id="message" placeholder="Your message..." required></textarea>
+
+          <div class="form-actions">
+            <button class="btn primary" type="submit">Send Message</button>
+            <span class="note" id="statusText"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const CONTACTS = {
+      primaryEmail: "visynicofficial@gmail.com"
+    };
+
+    function copyEmail(){
+      navigator.clipboard.writeText(CONTACTS.primaryEmail);
+      toast("Email copied.");
+    }
+
+    function toast(text){
+      const el = document.getElementById("statusText");
+      el.textContent = text;
+      setTimeout(() => el.textContent = "", 2200);
+    }
+
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      const subject = encodeURIComponent(`VISYNIC Inquiry from ${name}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\n---\nSent from VISYNIC website`
+      );
+
+      window.location.href = `mailto:${CONTACTS.primaryEmail}?subject=${subject}&body=${body}`;
+      toast("Opening email app...");
+    });
+
+    function openLink(url, newTab = true){
+      if(newTab) window.open(url, "_blank");
+      else window.location.href = url;
+    }
+  </script>
+</body>
+</html>
