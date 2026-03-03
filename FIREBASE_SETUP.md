@@ -1,39 +1,36 @@
-# Firebase Setup for VISYNIC Auth + Team Workspace
+# Firebase Setup for VISYNIC Team Page
 
-## 1) Add Firebase web config
-Update `assets/js/firebase-client.js`:
+## 1) Create Firebase project
+1. Go to `https://console.firebase.google.com/`
+2. Create a new project (or use existing).
+3. Add a Web App in Project Settings.
+4. Copy web config keys.
+
+## 2) Update config in website
+Edit `assets/js/firebase-client.js` and replace:
 
 ```js
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAgdTBS-i3f4MRCt4KVScDmUXCHnmpSG80",
+  authDomain: "visynic-website.firebaseapp.com",
+  projectId: "visynic-website",
+  storageBucket: "visynic-website.firebasestorage.app",S
+  messagingSenderId: "823989929650",
+  appId: "Y1:823989929650:web:00f1be9b05ff03dfe7abab"
 };
 ```
 
-Use the values from Firebase Console -> Project settings -> General -> Your apps -> Web app config.
+## 3) Enable authentication
+1. Open Firebase Console -> Authentication -> Sign-in method.
+2. Enable `Email/Password`.
 
-## 2) Enable Authentication providers
-Open Firebase Console -> Authentication -> Sign-in method and enable:
-1. `Email/Password`
-2. `Google`
+## 4) Create Firestore database
+1. Open Firebase Console -> Firestore Database.
+2. Create database in production mode.
+3. Pick a region close to your users.
 
-For Google provider:
-1. Set support email.
-2. Save.
-
-## 3) Authorize your website domain
-Open Authentication -> Settings -> Authorized domains:
-1. Add your production domain (example: `visynic.com`).
-2. Add local domain if needed (example: `localhost`).
-
-Google sign-in popup fails if the domain is not authorized.
-
-## 4) Create Firestore and apply rules
-Open Firestore Database and create database in production mode, then set rules:
+## 5) Add Firestore security rules
+Use these rules in Firestore Rules:
 
 ```txt
 rules_version = '2';
@@ -52,8 +49,9 @@ service cloud.firestore {
 }
 ```
 
-## 5) Deploy and test
-1. Open `auth.html`.
-2. Test sign up with email/password.
-3. Test sign in with Google (`Continue with Google` button).
-4. Open `team.html` and confirm add/view team items.
+These rules allow signed-in members to read team items and create new ones.
+
+## 6) Use the new pages
+1. Open `auth.html` and create team member accounts.
+2. Open `team.html` to add/view production tasks.
+3. Navbar links in all pages include `Production Team` and `Login / Sign Up`.
