@@ -128,11 +128,21 @@
     .preview-card{border:1px solid var(--border); border-radius:18px; padding:14px; background:rgba(255,255,255,0.04)}
     .preview-card b{display:block; margin-bottom:4px}
     .preview-meta{color:var(--muted); font-size:13.5px}
+    .timeline-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .timeline-card{border:1px solid var(--border); border-radius:22px; overflow:hidden; background:rgba(255,255,255,0.03); box-shadow:var(--shadow)}
+    .timeline-card video{width:100%; min-height:240px; display:block; object-fit:cover; background:#0b0f1b}
+    .timeline-meta{padding:12px; color:var(--muted); font-size:13px}
+    .youtube-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+    .youtube-card{border:1px solid var(--border); border-radius:22px; overflow:hidden; background:rgba(255,255,255,0.03); box-shadow:var(--shadow)}
+    .youtube-card iframe{display:block; width:100%; aspect-ratio:16/9; border:0}
+    .youtube-card .timeline-meta b{color:var(--text)}
 
     footer{padding:24px 0 40px; color:var(--muted); font-weight:650; border-top:1px solid var(--border)}
 
     @media (max-width:900px){
       .feature-grid{grid-template-columns:1fr}
+      .timeline-grid{grid-template-columns:1fr}
+      .youtube-grid{grid-template-columns:1fr}
       .menu-btn{display:inline-flex; padding:9px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:var(--text); font-weight:700}
       .nav-links{display:none}
       .nav-links.show{display:flex; flex-direction:column; align-items:flex-start; position:absolute; top:60px; right:4vw; background:rgba(7,10,18,0.95); border:1px solid var(--border); border-radius:18px; padding:10px; width:min(240px, 92vw)}
@@ -152,6 +162,7 @@
 
         <div class="nav-links" id="navLinks">
           <a href="index.html">Home</a>
+          <a href="portfolio.html">Portfolio</a>
           <a href="work.html" id="productionNavLink">Production</a>
           <a href="team.html" id="teamNavLink">Team</a>
           <a href="admin.html" id="adminNavLink">Admin</a>
@@ -210,6 +221,44 @@
           <div class="preview-card"><b>Studio Session</b><div class="preview-meta">Behind the scenes - Sound polish, captions</div></div>
           <div class="preview-card"><b>Short Form Hook</b><div class="preview-meta">High retention cut - Beat sync, effects</div></div>
         </div>
+      </div>
+    </section>
+
+    <section id="timelines">
+      <div class="section-title">
+        <h2>Timeline Reels</h2>
+        <p>Timeline 3 and Timeline 2</p>
+      </div>
+      <div class="timeline-grid">
+        <article class="timeline-card">
+          <video controls playsinline>
+            <source src="assets/timeline3.mp4" type="video/mp4" />
+          </video>
+          <div class="timeline-meta">Timeline 3 - Featured edit timeline.</div>
+        </article>
+        <article class="timeline-card">
+          <video controls playsinline>
+            <source src="assets/timeline2.mp4" type="video/mp4" />
+          </video>
+          <div class="timeline-meta">Timeline 2 - Additional production timeline.</div>
+        </article>
+      </div>
+    </section>
+
+    <section id="artist-edits">
+      <div class="section-title">
+        <h2>Artist Edits</h2>
+        <p>YouTube releases</p>
+      </div>
+      <div class="youtube-grid">
+        <article class="youtube-card">
+          <iframe src="https://www.youtube.com/embed/oElNDH61QPI" title="Artist Edit 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <div class="timeline-meta"><b>Artist edit - EIGHT FIGURES (KR JAYVARDHAN)</b><br>Published cut for artist release.</div>
+        </article>
+        <article class="youtube-card">
+          <iframe src="https://www.youtube.com/embed/D6vEFD_5vAc" title="Artist Edit 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <div class="timeline-meta"><b>Artist edit - JHALAWAR BARS</b><br>Second public artist edit release.</div>
+        </article>
       </div>
     </section>
   </main>
