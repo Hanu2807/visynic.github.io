@@ -14,9 +14,9 @@ const firebaseConfig = {
   apiKey: "AIzaSyAgdTBS-i3f4MRCt4KVScDmUXCHnmpSG80",
   authDomain: "visynic-website.firebaseapp.com",
   projectId: "visynic-website",
-  storageBucket: "visynic-website.firebasestorage.app",S
+  storageBucket: "visynic-website.firebasestorage.app",
   messagingSenderId: "823989929650",
-  appId: "Y1:823989929650:web:00f1be9b05ff03dfe7abab"
+  appId: "1:823989929650:web:00f1be9b05ff03dfe7abab"
 };
 ```
 
@@ -30,28 +30,17 @@ const firebaseConfig = {
 3. Pick a region close to your users.
 
 ## 5) Add Firestore security rules
-Use these rules in Firestore Rules:
+Use the `firestore.rules` file from this project root.
 
-```txt
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
+If you use Firebase CLI:
+1. `firebase login`
+2. `firebase use <your-project-id>`
+3. `firebase deploy --only firestore:rules`
 
-    match /teamItems/{itemId} {
-      allow read: if request.auth != null;
-      allow create: if request.auth != null;
-      allow update, delete: if false;
-    }
-  }
-}
-```
-
-These rules allow signed-in members to read team items and create new ones.
+Or copy-paste `firestore.rules` into Firebase Console -> Firestore -> Rules and publish.
 
 ## 6) Use the new pages
-1. Open `auth.html` and create team member accounts.
-2. Open `team.html` to add/view production tasks.
-3. Navbar links in all pages include `Production Team` and `Login / Sign Up`.
+1. Open `auth.html`, sign in, submit access request.
+2. Open `admin.html` with owner email to approve/reject and issue PIN.
+3. Approved users can open `work.html`/`team.html` and unlock with PIN.
+4. `contact.html` stores new inquiries in `contactMessages`.

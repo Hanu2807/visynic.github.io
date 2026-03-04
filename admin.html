@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VISYNIC | Admin</title>
+  <meta name="description" content="VISYNIC admin access management." />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+    :root{--bg:#070a12;--card:#0d1324;--text:#e8ecff;--muted:#a7b0d6;--accent:#4a7dff;--accent2:#ff3d57;--border:rgba(255,255,255,0.10);--font-body:"Manrope",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;--font-heading:"Space Grotesk","Manrope",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:var(--font-body);background:radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%),radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%),repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px),var(--bg);color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1140px,92vw);margin:0 auto}
+    nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(7,10,18,0.55);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:0.6px;font-family:var(--font-heading)}
+    .dot{width:10px;height:10px;border-radius:99px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 30px rgba(74,125,255,0.45)}
+    .nav-links{display:flex;gap:18px;align-items:center;font-weight:600;color:var(--muted)}
+    .nav-links a{padding:8px 10px;border-radius:12px}
+    .nav-links a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+    main{padding:28px 0 42px}
+    .card{background:rgba(13,19,36,0.6);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px}
+    h1,h2,h3{font-family:var(--font-heading);margin:0 0 10px}
+    p{color:var(--muted);line-height:1.6;margin:0}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+    th{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    input,select,button{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);font-weight:600}
+    button{cursor:pointer}
+    .actions-cell{min-width:180px}
+    .approve{background:linear-gradient(135deg, rgba(74,125,255,0.95), rgba(74,125,255,0.55))}
+    .reject{background:linear-gradient(135deg, rgba(255,61,87,0.90), rgba(255,61,87,0.55))}
+    .status{min-height:18px;color:var(--muted);font-size:13px;font-weight:700}
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand"><div class="dot"></div><div>VISYNIC ADMIN</div></div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="auth.html">Access</a>
+          <a href="admin.html" id="adminNavLink">Admin</a>
+          <a href="auth.html" id="authNavLink">Login / Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="card">
+      <h1>Access Control</h1>
+      <p>Approve requests, assign PIN, or revoke team workspace access.</p>
+      <div class="status" id="statusText"></div>
+    </section>
+
+    <section class="card">
+      <h2>Pending Requests</h2>
+      <table>
+        <thead>
+          <tr><th>Member</th><th>Requested Role</th><th>Reason</th><th>PIN</th><th>Actions</th></tr>
+        </thead>
+        <tbody id="requestRows"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script type="module">
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      collection,
+      doc,
+      getDoc,
+      getDocs,
+      limit,
+      query,
+      serverTimestamp,
+      updateDoc,
+      where
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { auth, db, firebaseReady } from "./assets/js/firebase-client.js";
+    import { hashPin } from "./assets/js/team-access.js";
+    import { isEmailJsReady, sendApprovalPinEmail } from "./automationemail.js";
+
+    const OWNER_EMAILS = ["visynicofficial@gmail.com", "himanshusharmaaofficial@gmail.com"];
+
+    const statusText = document.getElementById("statusText");
+    const requestRows = document.getElementById("requestRows");
+
+    function setStatus(text) {
+      statusText.textContent = text;
+    }
+
+    function randomPin() {
+      return Math.floor(100000 + Math.random() * 900000).toString();
+    }
+
+    async function approveRequest(requestId, uid, pinInputEl, requestEmail, requestRole) {
+      try {
+        const plainPin = pinInputEl.value.trim() || randomPin();
+        const pinHash = await hashPin(plainPin);
+
+        await updateDoc(doc(db, "users", uid), {
+          teamApproved: true,
+          teamPinHash: pinHash,
+          teamApprovedAt: serverTimestamp()
+        });
+
+        await updateDoc(doc(db, "accessRequests", requestId), {
+          status: "approved",
+          approvedAt: serverTimestamp(),
+          approvedBy: auth.currentUser?.email || "admin",
+          issuedPinHint: `PIN issued on ${new Date().toLocaleDateString()}`
+        });
+
+        const emailSend = await sendApprovalPinEmail({
+          toEmail: requestEmail || "",
+          toName: requestRole || "Team Member",
+          pin: plainPin,
+          approvedBy: auth.currentUser?.email || "VISYNIC Admin"
+        });
+
+        if (emailSend.ok) {
+          setStatus(`Approved and email sent: ${requestEmail || "recipient"}.`);
+        } else if (isEmailJsReady()) {
+          setStatus(`Approved. Email failed, share PIN manually: ${plainPin}`);
+        } else {
+          setStatus(`Approved. EmailJS missing public key, share PIN manually: ${plainPin}`);
+        }
+        await loadRequests();
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          setStatus("Firestore rules blocked admin action. Update rules for accessRequests/users.");
+          return;
+        }
+        setStatus(err?.message || "Approval failed.");
+      }
+    }
+
+    async function rejectRequest(requestId, uid) {
+      try {
+        await updateDoc(doc(db, "users", uid), {
+          teamApproved: false,
+          teamPinHash: ""
+        });
+
+        await updateDoc(doc(db, "accessRequests", requestId), {
+          status: "rejected",
+          reviewedAt: serverTimestamp(),
+          reviewedBy: auth.currentUser?.email || "admin"
+        });
+
+        setStatus("Request rejected.");
+        await loadRequests();
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          setStatus("Firestore rules blocked admin action. Update rules for accessRequests/users.");
+          return;
+        }
+        setStatus(err?.message || "Reject failed.");
+      }
+    }
+
+    async function loadRequests() {
+      try {
+        requestRows.innerHTML = "";
+        const q = query(
+          collection(db, "accessRequests"),
+          where("status", "==", "pending"),
+          limit(50)
+        );
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          requestRows.innerHTML = "<tr><td colspan='5'>No pending requests.</td></tr>";
+          return;
+        }
+
+        snap.docs
+          .sort((a, b) => {
+            const aSec = a.data()?.createdAt?.seconds || 0;
+            const bSec = b.data()?.createdAt?.seconds || 0;
+            return bSec - aSec;
+          })
+          .forEach((row) => {
+          const data = row.data();
+          const tr = document.createElement("tr");
+
+          const memberTd = document.createElement("td");
+          memberTd.innerHTML = `<b>${data.email || data.uid}</b><br><small style="color:var(--muted)">${data.uid || ""}</small>`;
+
+          const roleTd = document.createElement("td");
+          roleTd.textContent = data.requestedRole || "-";
+
+          const reasonTd = document.createElement("td");
+          reasonTd.textContent = data.reason || "-";
+
+          const pinTd = document.createElement("td");
+          const pinInput = document.createElement("input");
+          pinInput.placeholder = "Auto-generate if empty";
+          pinTd.appendChild(pinInput);
+
+          const actionsTd = document.createElement("td");
+          actionsTd.className = "actions-cell";
+          const approveBtn = document.createElement("button");
+          approveBtn.className = "approve";
+          approveBtn.textContent = "Approve";
+          approveBtn.addEventListener("click", () => approveRequest(
+            row.id,
+            data.uid,
+            pinInput,
+            data.email || "",
+            data.requestedRole || "Team Member"
+          ));
+
+          const rejectBtn = document.createElement("button");
+          rejectBtn.className = "reject";
+          rejectBtn.style.marginTop = "8px";
+          rejectBtn.textContent = "Reject";
+          rejectBtn.addEventListener("click", () => rejectRequest(row.id, data.uid));
+
+          actionsTd.appendChild(approveBtn);
+          actionsTd.appendChild(rejectBtn);
+
+          tr.appendChild(memberTd);
+          tr.appendChild(roleTd);
+          tr.appendChild(reasonTd);
+          tr.appendChild(pinTd);
+          tr.appendChild(actionsTd);
+
+          requestRows.appendChild(tr);
+        });
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          requestRows.innerHTML = "<tr><td colspan='5'>Firestore rules block accessRequests read.</td></tr>";
+          setStatus("Firestore rules blocked admin reads.");
+          return;
+        }
+        setStatus(err?.message || "Failed to load requests.");
+      }
+    }
+
+    if (!firebaseReady || !auth || !db) {
+      statusText.textContent = "Admin services unavailable.";
+    } else {
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "auth.html?next=admin.html";
+          return;
+        }
+
+        if (!OWNER_EMAILS.includes((user.email || "").toLowerCase())) {
+          statusText.textContent = "Access denied.";
+          return;
+        }
+
+        const profile = await getDoc(doc(db, "users", user.uid));
+        if (!profile.exists()) {
+          statusText.textContent = "Admin profile unavailable.";
+          return;
+        }
+
+        statusText.textContent = "Admin access granted.";
+        await loadRequests();
+      });
+    }
+  </script>
+  <script type="module" src="assets/js/nav-auth.js"></script>
+</body>
+</html>

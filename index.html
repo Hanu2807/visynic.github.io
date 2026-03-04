@@ -3,10 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VISYNIC | Himanshu Sharma</title>
-  <meta name="description" content="VISYNIC - Portfolio of Himanshu Sharma. Video Editing, Visual Storytelling, Post-Production." />
+  <title>VISYNIC | Home</title>
+  <meta name="description" content="VISYNIC homepage." />
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+
     :root{
       --bg:#070a12;
       --card:#0d1324;
@@ -14,375 +15,133 @@
       --muted:#a7b0d6;
       --accent:#4a7dff;
       --accent2:#ff3d57;
-      --border: rgba(255,255,255,0.10);
-      --shadow: 0 18px 40px rgba(0,0,0,0.55);
-      --font-body: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --font-heading: "Space Grotesk", "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --border:rgba(255,255,255,0.10);
+      --shadow:0 18px 40px rgba(0,0,0,0.55);
+      --font-body:"Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --font-heading:"Space Grotesk", "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
 
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-body);background: radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%),
-      radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%),
-      repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px),
-      var(--bg);
+    html,body{
+      margin:0;
+      padding:0;
+      font-family:var(--font-body);
+      background:
+        radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%),
+        radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%),
+        repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px),
+        var(--bg);
       color:var(--text);
       scroll-behavior:smooth;
     }
 
     a{color:inherit;text-decoration:none}
-    .container{width:min(1100px, 92vw); margin:0 auto;}
-    .section-spacer{height:12px}
+    .container{width:min(1100px, 92vw); margin:0 auto}
 
-    /* NAV */
     nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(16px);
-      background: rgba(7,10,18,0.55);
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(16px);
+      background:rgba(7,10,18,0.55);
       border-bottom:1px solid var(--border);
     }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-    }
-    .brand{
-      display:flex; gap:10px; align-items:center;
-      font-weight:800; letter-spacing:0.6px;
-      font-family: var(--font-heading);
-    }
-    .dot{
-      width:10px;height:10px;border-radius:99px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 30px rgba(74,125,255,0.45);
-    }
+    .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:0.6px; font-family:var(--font-heading)}
+    .dot{width:10px; height:10px; border-radius:99px; background:linear-gradient(135deg, var(--accent), var(--accent2)); box-shadow:0 0 30px rgba(74,125,255,0.45)}
     .nav-links{display:flex; gap:18px; align-items:center; font-weight:600; color:var(--muted)}
-    .nav-links a{padding:8px 10px;border-radius:12px}
-    .nav-links a:hover{background: rgba(255,255,255,0.06); color:var(--text)}
-    .cta{
-      padding:10px 14px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(74,125,255,0.95), rgba(255,61,87,0.9));
-      border:0; color:white; font-weight:800;
-      cursor:pointer;
-      box-shadow: 0 14px 30px rgba(74,125,255,0.18);
-      transition: transform .15s ease;
-    }
-    .cta:hover{transform: translateY(-1px)}
+    .nav-links a{padding:8px 10px; border-radius:12px}
+    .nav-links a:hover{background:rgba(255,255,255,0.06); color:var(--text)}
     .menu-btn{display:none}
 
-    /* HERO */
-    header{
-      padding:70px 0 26px;
-    }
-    .hero{
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap:22px;
-      align-items:stretch;
-    }
+    header{padding:70px 0 28px}
     .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding:26px;
-      box-shadow: var(--shadow);
+      background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid var(--border);
+      border-radius:24px;
+      padding:28px;
+      box-shadow:var(--shadow);
       position:relative;
       overflow:hidden;
-      animation: floatIn .6s ease both;
     }
     .hero-card::before{
       content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(500px 260px at 20% 10%, rgba(74,125,255,0.18), transparent 60%),
-                  radial-gradient(460px 240px at 90% 30%, rgba(255,61,87,0.14), transparent 55%);
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(500px 260px at 20% 10%, rgba(74,125,255,0.18), transparent 60%),
+        radial-gradient(460px 240px at 90% 30%, rgba(255,61,87,0.14), transparent 55%);
       pointer-events:none;
     }
     .hero-content{position:relative}
+
     .badge{
-      display:inline-flex; gap:10px; align-items:center;
-      padding:8px 12px; border-radius:999px;
-      background: rgba(255,255,255,0.06);
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.06);
       border:1px solid var(--border);
-      color: var(--muted);
+      color:var(--muted);
       font-weight:700;
       font-size:14px;
     }
-    .badge span{
-      color:white; font-weight:800;
-    }
+    .badge span{color:#fff; font-weight:800}
+
     h1{
-      margin:14px 0 10px;
-      font-size: clamp(30px, 4vw, 46px);
+      margin:14px 0 12px;
+      font-size:clamp(32px, 5.2vw, 62px);
       line-height:1.05;
-      letter-spacing:-0.6px;
-      font-family: var(--font-heading);
+      letter-spacing:-0.8px;
+      font-family:var(--font-heading);
+      max-width:16ch;
     }
-    h2, h3{font-family: var(--font-heading)}
-    .subtitle{
-      color: var(--muted);
-      font-size: 15.5px;
-      line-height:1.65;
-      max-width:60ch;
-    }
-    .hero-actions{
-      display:flex; flex-wrap:wrap;
-      gap:12px;
-      margin-top:18px;
-    }
+    .subtitle{color:var(--muted); font-size:15.5px; line-height:1.65; max-width:62ch; margin:0}
+
+    .hero-actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px}
     .btn{
-      padding:12px 14px;
+      padding:12px 16px;
       border-radius:14px;
       border:1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
+      background:rgba(255,255,255,0.05);
+      color:var(--text);
       font-weight:800;
       cursor:pointer;
-      transition: transform .15s ease, background .15s ease;
+      transition:transform .15s ease, background .15s ease;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,0.07)}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(74,125,255,0.95), rgba(74,125,255,0.55));
-      border-color: rgba(74,125,255,0.35);
-    }
-    .btn.red{
-      background: linear-gradient(135deg, rgba(255,61,87,0.90), rgba(255,61,87,0.55));
-      border-color: rgba(255,61,87,0.35);
-    }
+    .btn:hover{transform:translateY(-1px); background:rgba(255,255,255,0.07)}
+    .btn.primary{background:linear-gradient(135deg, rgba(74,125,255,0.95), rgba(74,125,255,0.55)); border-color:rgba(74,125,255,0.35)}
+    .btn.red{background:linear-gradient(135deg, rgba(255,61,87,0.90), rgba(255,61,87,0.55)); border-color:rgba(255,61,87,0.35)}
 
-    .side-card{
-      background: rgba(13,19,36,0.7);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding:22px;
-      box-shadow: var(--shadow);
-      display:flex; flex-direction:column; justify-content:space-between;
-      gap:14px;
-      animation: floatIn .7s ease both;
-    }
+    .note{color:var(--muted); font-size:18px; font-weight:700; margin-top:14px}
 
-    .mini{
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px;
-      background: rgba(255,255,255,0.04);
-    }
-    .mini h3{margin:0 0 6px; font-size:15px}
-    .mini p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.6}
-    .stats{
-      display:grid; grid-template-columns: 1fr 1fr;
-      gap:10px;
-    }
-    .stat{
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px;
-      background: rgba(255,255,255,0.03);
-    }
-    .stat b{display:block; font-size:18px}
-    .stat small{color:var(--muted); font-weight:700}
-
-    /* SECTIONS */
-    section{padding:26px 0}
-    .section-title{
-      display:flex; align-items:flex-end; justify-content:space-between;
-      gap:12px;
-      margin-bottom:12px;
-    }
-    .section-title h2{
-      margin:0;
-      font-size:22px;
-      letter-spacing:-0.2px;
-    }
-    .section-title h2::after{
-      content:"";
-      display:block;
-      width:52px;
-      height:2px;
-      border-radius:999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      margin-top:8px;
-    }
-    .section-title p{
-      margin:0;
-      color:var(--muted);
-      font-weight:600;
-      font-size:13.5px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    .card{
-      background: rgba(13,19,36,0.6);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding:18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-      transition: transform .18s ease;
-      animation: floatIn .75s ease both;
-    }
-    .card:hover{transform: translateY(-2px)}
-    .tag{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      color:var(--muted);
-      font-weight:800;
-      font-size:12px;
-      margin-bottom:10px;
-    }
-    .card h3{margin:0 0 6px; font-size:16px}
-    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:13.5px}
-
-    /* PORTFOLIO */
-    .work-grid{
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap:14px;
-    }
-    .feature-grid{
-      display:grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap:14px;
-      align-items:stretch;
-    }
-    .video-hero{
-      border:1px solid var(--border);
-      border-radius:22px;
-      overflow:hidden;
-      background: rgba(255,255,255,0.03);
-      box-shadow: var(--shadow);
-      position:relative;
-    }
-    .video-hero .overlay{
-      position:absolute;
-      inset:auto 14px 14px 14px;
-      background: rgba(7,10,18,0.7);
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:10px 12px;
-      font-weight:700;
-    }
-    .video-hero video{
-      width:100%;
-      height:100%;
-      display:block;
-      object-fit:cover;
-      min-height:260px;
-      background:#0b0f1b;
-    }
-    .preview-list{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:12px;
-    }
-    .preview-card{
-      border:1px solid var(--border);
-      border-radius:18px;
-      padding:14px;
-      background: rgba(255,255,255,0.04);
-    }
+    section{padding:24px 0 34px}
+    .section-title{display:flex; justify-content:space-between; gap:12px; margin-bottom:12px}
+    .section-title h2{margin:0; font-family:var(--font-heading); font-size:22px}
+    .section-title p{margin:0; color:var(--muted); font-weight:600; font-size:13.5px}
+    .feature-grid{display:grid; grid-template-columns:1.2fr .8fr; gap:14px}
+    .video-hero{border:1px solid var(--border); border-radius:22px; overflow:hidden; background:rgba(255,255,255,0.03); box-shadow:var(--shadow); position:relative}
+    .video-hero video{width:100%; min-height:260px; display:block; object-fit:cover; background:#0b0f1b}
+    .video-hero .overlay{position:absolute; inset:auto 14px 14px 14px; background:rgba(7,10,18,0.7); border:1px solid var(--border); border-radius:14px; padding:10px 12px; font-weight:700}
+    .preview-list{display:grid; gap:12px}
+    .preview-card{border:1px solid var(--border); border-radius:18px; padding:14px; background:rgba(255,255,255,0.04)}
     .preview-card b{display:block; margin-bottom:4px}
     .preview-meta{color:var(--muted); font-size:13.5px}
-    .video-card{
-      border:1px solid var(--border);
-      border-radius:22px;
-      padding:18px;
-      background: rgba(255,255,255,0.03);
-      min-height:240px;
-      position:relative;
-      overflow:hidden;
-      animation: floatIn .8s ease both;
-    }
-    .video-card::before{
-      content:"";
-      position:absolute; inset:-1px;
-      background: radial-gradient(600px 260px at 20% 20%, rgba(74,125,255,0.16), transparent 60%),
-                  radial-gradient(540px 260px at 90% 50%, rgba(255,61,87,0.12), transparent 55%);
-      pointer-events:none;
-    }
-    .video-card .inner{position:relative}
-    .placeholder{
-      margin-top:12px;
-      border-radius:18px;
-      border:1px dashed rgba(255,255,255,0.18);
-      padding:16px;
-      color:var(--muted);
-      font-weight:700;
-      font-size:13.5px;
-      line-height:1.6;
-    }
 
-    /* CONTACT */
-    form{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-    }
-    input, textarea{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      outline:none;
-      font-weight:600;
-    }
-    textarea{grid-column: 1 / -1; min-height:120px; resize:vertical}
-    .form-actions{
-      grid-column: 1 / -1;
-      display:flex;
-      gap:12px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    .note{
-      color: var(--muted);
-      font-size:13px;
-      font-weight:700;
-    }
+    footer{padding:24px 0 40px; color:var(--muted); font-weight:650; border-top:1px solid var(--border)}
 
-    footer{
-      padding:26px 0 40px;
-      color: var(--muted);
-      font-weight:650;
-      border-top:1px solid var(--border);
-      margin-top:10px;
-    }
-
-    @keyframes floatIn{
-      from{opacity:0; transform: translateY(12px)}
-      to{opacity:1; transform: translateY(0)}
-    }
-
-    /* Responsive */
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-      .work-grid{grid-template-columns:1fr}
+    @media (max-width:900px){
       .feature-grid{grid-template-columns:1fr}
-      form{grid-template-columns:1fr}
-      .menu-btn{display:inline-flex}
+      .menu-btn{display:inline-flex; padding:9px 12px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,0.05); color:var(--text); font-weight:700}
       .nav-links{display:none}
-      .nav-links.show{
-        display:flex; flex-direction:column; align-items:flex-start;
-        position:absolute;
-        top:60px; right: 4vw;
-        background: rgba(7,10,18,0.95);
-        border:1px solid var(--border);
-        border-radius:18px;
-        padding:10px;
-        width:min(240px, 92vw);
-      }
+      .nav-links.show{display:flex; flex-direction:column; align-items:flex-start; position:absolute; top:60px; right:4vw; background:rgba(7,10,18,0.95); border:1px solid var(--border); border-radius:18px; padding:10px; width:min(240px, 92vw)}
+      .subtitle{font-size:18px}
+      .note{font-size:16px}
     }
   </style>
 </head>
-
 <body>
-
   <nav>
     <div class="container">
       <div class="nav-inner">
@@ -392,84 +151,40 @@
         </div>
 
         <div class="nav-links" id="navLinks">
-          <a href="#projects">Video Projects</a>
-          <a href="work.html">Projects</a>
-          <a href="team.html" id="teamNavLink">Production Team</a>
-          <a href="#about">About</a>
+          <a href="index.html">Home</a>
+          <a href="work.html" id="productionNavLink">Production</a>
+          <a href="team.html" id="teamNavLink">Team</a>
+          <a href="admin.html" id="adminNavLink">Admin</a>
           <a href="contact.html">Contact</a>
           <a href="auth.html" id="authNavLink">Login / Sign Up</a>
         </div>
 
-        <div style="display:flex; gap:10px; align-items:center;">
-          <button class="btn menu-btn" id="menuBtn">Menu</button>
-        </div>
+        <button class="menu-btn" id="menuBtn">Menu</button>
       </div>
     </div>
   </nav>
 
   <header class="container">
-    <div class="hero">
-      <div class="hero-card">
-        <div class="hero-content">
-          <div class="badge">
-            <span>Himanshu Sharma</span> - Editor - Storyteller - Builder
-          </div>
-
-          <h1>
-            VISYNIC builds bold visuals with clean rhythm and story.
-          </h1>
-
-          <p class="subtitle">
-            I'm <b>Himanshu Sharma</b>, a video editor and visual storyteller.
-            I build premium edits, cinematic reels, brand visuals, and post-production that feels sharp and memorable.
-          </p>
-
-          <div class="hero-actions">
-            <button class="btn primary" onclick="scrollToSection('projects')">View Work</button>
-            <button class="btn red" onclick="openLink('#', true)">YouTube</button>
-            <button class="btn" onclick="openLink('#', true)">Instagram</button>
-            <button class="btn" onclick="copyEmail()">Copy Email</button>
-          </div>
-
-          <p class="note" style="margin-top:14px;">
-            Available for edits, reels, visual stories, color grading and clean audio.
-          </p>
-        </div>
-      </div>
-
-      <div class="side-card">
-        <div class="mini">
-          <h3>What I do</h3>
-          <p>
-            Editing - Sound polish - Captions - Color - Motion graphics - Export workflows
-          </p>
+    <div class="hero-card">
+      <div class="hero-content">
+        <div class="badge">
+          <span>Himanshu Sharma</span> - Editor - Storyteller - Builder
         </div>
 
-        <div class="stats">
-          <div class="stat">
-            <b>Fast Delivery</b>
-            <small>Clean & consistent</small>
-          </div>
-          <div class="stat">
-            <b>Premium Feel</b>
-            <small>Story + rhythm</small>
-          </div>
-          <div class="stat">
-            <b>Post Work</b>
-            <small>Full production</small>
-          </div>
-          <div class="stat">
-            <b>Reels/Shorts</b>
-            <small>High retention</small>
-          </div>
+        <h1>VISYNIC builds bold visuals with clean rhythm and story.</h1>
+
+        <p class="subtitle">
+          I'm <b>Himanshu Sharma</b>, a video editor and visual storyteller. I build premium edits, cinematic reels, brand visuals, and post-production that feels sharp and memorable.
+        </p>
+
+        <div class="hero-actions">
+          <button class="btn primary" onclick="scrollToSection('projects')">View Work</button>
+          <button class="btn red" onclick="openLink(LINKS.youtube, true)">YouTube</button>
+          <button class="btn" onclick="openLink(LINKS.instagram, true)">Instagram</button>
+          <button class="btn" onclick="copyEmail()">Copy Email</button>
         </div>
 
-        <div class="mini">
-          <h3>Latest Drop</h3>
-          <p>
-            "JHALAWAR BARS" (KR JAYVARDHAN x VISYNIC)
-          </p>
-        </div>
+        <p class="note">Available for edits, reels, visual stories, color grading and clean audio.</p>
       </div>
     </div>
   </header>
@@ -477,138 +192,61 @@
   <main class="container">
     <section id="projects">
       <div class="section-title">
-        <h2>Video Projects</h2>
-        <p>Featured edits from VISYNIC</p>
+        <h2>Featured Work</h2>
+        <p>Latest preview</p>
       </div>
 
       <div class="feature-grid">
         <div class="video-hero">
-          <video id="featuredVideo" autoplay muted loop playsinline poster="assets/timeline1.jpg">
+          <video autoplay muted loop playsinline poster="assets/timeline1.jpg">
             <source src="assets/Timeline 1.mp4" type="video/mp4" />
           </video>
-          <div class="overlay">
-            Featured Reel - short preview
-          </div>
+          <div class="overlay">Featured Reel - short preview</div>
         </div>
 
         <div class="preview-list">
-          <div class="preview-card">
-            <b>JHALAWAR BARS</b>
-            <div class="preview-meta">Artist collab - edit, mix, master</div>
-          </div>
-          <div class="preview-card">
-            <b>City Lights</b>
-            <div class="preview-meta">Cinematic reel - Color, pacing, transitions</div>
-          </div>
-          <div class="preview-card">
-            <b>Studio Session</b>
-            <div class="preview-meta">Behind the scenes - Sound polish, captions</div>
-          </div>
-          <div class="preview-card">
-            <b>Short Form Hook</b>
-            <div class="preview-meta">High retention cut - Beat sync, effects</div>
-          </div>
+          <div class="preview-card"><b>JHALAWAR BARS</b><div class="preview-meta">Artist collab - edit, mix, master</div></div>
+          <div class="preview-card"><b>City Lights</b><div class="preview-meta">Cinematic reel - Color, pacing, transitions</div></div>
+          <div class="preview-card"><b>Studio Session</b><div class="preview-meta">Behind the scenes - Sound polish, captions</div></div>
+          <div class="preview-card"><b>Short Form Hook</b><div class="preview-meta">High retention cut - Beat sync, effects</div></div>
         </div>
       </div>
     </section>
-
-    <section id="about">
-      <div class="section-title">
-        <h2>About VISYNIC</h2>
-        <p>Focused on craft and clarity</p>
-      </div>
-
-      <div class="grid">
-        <div class="card">
-          <div class="tag">Identity</div>
-          <h3>Creative Studio</h3>
-          <p>
-            VISYNIC is a growing creative identity focused on clean edits and strong storytelling.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="tag">Style</div>
-          <h3>Modern and Cinematic</h3>
-          <p>
-            Smooth cuts, clear typography, bold rhythm, and edits that keep the viewer engaged.
-          </p>
-        </div>
-
-        <div class="card">
-          <div class="tag">Goal</div>
-          <h3>Make it Replayable</h3>
-          <p>
-            Every project aims to feel professional, sharp, and worth watching twice.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      <div class="container">
-        (c) <span id="year"></span> VISYNIC - Built by Himanshu Sharma
-      </div>
-    </footer>
-
   </main>
 
+  <footer>
+    <div class="container">(c) <span id="year"></span> VISYNIC - Built by Himanshu Sharma</div>
+  </footer>
+
   <script>
-    // ====== EDIT THESE LINKS ======
     const LINKS = {
-      youtube: "https://youtube.com/@visynicofficial", // <-- replace
-      instagram: "https://www.instagram.com/visynic?igsh=Nmk1cjVpOGZmMTVr",  // <-- replace
+      youtube: "https://youtube.com/@visynicofficial",
+      instagram: "https://www.instagram.com/visynic?igsh=Nmk1cjVpOGZmMTVr",
       email: "visynicofficial@gmail.com"
     };
 
     document.getElementById("year").textContent = new Date().getFullYear();
 
     function openLink(url, newTab = true){
-      if(url === "#"){
-        alert("Replace this link in the code first.");
-        return;
-      }
+      if(!url) return;
       if(newTab) window.open(url, "_blank");
       else window.location.href = url;
     }
 
     function scrollToSection(id){
-      document.getElementById(id).scrollIntoView({behavior:"smooth"});
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({behavior:"smooth"});
     }
 
     function copyEmail(){
       navigator.clipboard.writeText(LINKS.email);
-      toast("Email copied.");
     }
 
-    function toast(text){
-      const el = document.getElementById("statusText");
-      if(el){
-        el.textContent = text;
-        setTimeout(() => el.textContent = "", 2200);
-      }
-    }
-
-    // Fix hero buttons with actual links
-    const heroBtns = document.querySelectorAll(".hero-actions button");
-    heroBtns.forEach(btn => {
-      if(btn.textContent.trim() === "YouTube"){
-        btn.onclick = () => openLink(LINKS.youtube, true);
-      }
-      if(btn.textContent.trim() === "Instagram"){
-        btn.onclick = () => openLink(LINKS.instagram, true);
-      }
-    });
-
-    // Mobile Menu
     const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.getElementById("navLinks");
     if(menuBtn){
-      menuBtn.addEventListener("click", () => {
-        navLinks.classList.toggle("show");
-      });
+      menuBtn.addEventListener("click", () => navLinks.classList.toggle("show"));
     }
-
   </script>
   <script type="module" src="assets/js/nav-auth.js"></script>
 </body>

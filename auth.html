@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VISYNIC | Login</title>
-  <meta name="description" content="VISYNIC account login and sign up for production team access." />
+  <title>VISYNIC | Access</title>
+  <meta name="description" content="VISYNIC account and team access request." />
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
     :root{
       --bg:#070a12;
       --card:#0d1324;
@@ -20,106 +20,36 @@
       --font-heading: "Space Grotesk", "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-body);background: radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%),
-      radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%),
-      repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px),
-      var(--bg);
-      color:var(--text);
-    }
+    html,body{margin:0;padding:0;font-family:var(--font-body);background: radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%), radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%), repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px), var(--bg); color:var(--text)}
     a{color:inherit;text-decoration:none}
-    .container{width:min(1100px, 92vw); margin:0 auto;}
-    nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(16px);
-      background: rgba(7,10,18,0.55);
-      border-bottom:1px solid var(--border);
-    }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-    }
-    .brand{
-      display:flex; gap:10px; align-items:center;
-      font-weight:800; letter-spacing:0.6px;
-      font-family: var(--font-heading);
-    }
-    .dot{
-      width:10px;height:10px;border-radius:99px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 30px rgba(74,125,255,0.45);
-    }
-    .nav-links{display:flex; gap:18px; align-items:center; font-weight:600; color:var(--muted)}
+    .container{width:min(1100px,92vw);margin:0 auto}
+
+    nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(7,10,18,0.55);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:0.6px;font-family:var(--font-heading)}
+    .dot{width:10px;height:10px;border-radius:99px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 30px rgba(74,125,255,0.45)}
+    .nav-links{display:flex;gap:18px;align-items:center;font-weight:600;color:var(--muted)}
     .nav-links a{padding:8px 10px;border-radius:12px}
-    .nav-links a:hover{background: rgba(255,255,255,0.06); color:var(--text)}
-    main{padding:44px 0}
-    .layout{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:16px;
-      max-width: 620px;
-      margin: 0 auto;
-    }
-    .card{
-      background: rgba(13,19,36,0.6);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding:20px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-    }
-    h1,h2{font-family:var(--font-heading); margin:0 0 10px}
-    p{margin:0; color:var(--muted); line-height:1.7}
-    .switch{
-      display:flex;
-      gap:10px;
-      margin:16px 0;
-    }
-    .btn{
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      color: var(--text);
-      font-weight:800;
-      cursor:pointer;
-    }
-    .btn.active{
-      background: linear-gradient(135deg, rgba(74,125,255,0.95), rgba(255,61,87,0.9));
-    }
-    form{
-      display:grid;
-      gap:12px;
-      margin-top:8px;
-    }
-    input{
-      width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      outline:none;
-      font-weight:600;
-    }
-    .note{
-      margin-top:10px;
-      font-size:13px;
-      color:var(--muted);
-      font-weight:700;
-      min-height:20px;
-    }
-    .helper{
-      margin-top:12px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:700;
-    }
-    .google-btn{
-      margin-top:12px;
-      background: rgba(255,255,255,0.08);
-    }
-    @media (max-width: 900px){
+    .nav-links a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+
+    main{padding:38px 0}
+    .layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:rgba(13,19,36,0.6);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:0 10px 24px rgba(0,0,0,0.35)}
+    h1,h2{font-family:var(--font-heading);margin:0 0 10px}
+    p{margin:0;color:var(--muted);line-height:1.7}
+
+    .switch{display:flex;gap:10px;margin:16px 0}
+    .btn{padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.05);color:var(--text);font-weight:800;cursor:pointer}
+    .btn.active{background:linear-gradient(135deg, rgba(74,125,255,0.95), rgba(255,61,87,0.9))}
+    form{display:grid;gap:12px;margin-top:8px}
+    input,textarea{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);outline:none;font-weight:600}
+    textarea{min-height:120px;resize:vertical}
+    .note{margin-top:10px;font-size:13px;color:var(--muted);font-weight:700;min-height:20px}
+    .status-badge{display:inline-flex;padding:5px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px;font-weight:700;color:var(--muted);margin-top:8px}
+
+    @media (max-width: 920px){
       .layout{grid-template-columns:1fr}
-      .nav-links{gap:8px; font-size:14px}
+      .nav-links{gap:8px;font-size:14px}
     }
   </style>
 </head>
@@ -127,14 +57,12 @@
   <nav>
     <div class="container">
       <div class="nav-inner">
-        <div class="brand">
-          <div class="dot"></div>
-          <div>VISYNIC</div>
-        </div>
+        <div class="brand"><div class="dot"></div><div>VISYNIC</div></div>
         <div class="nav-links">
           <a href="index.html">Home</a>
-          <a href="work.html">Projects</a>
-          <a href="team.html" id="teamNavLink">Production Team</a>
+          <a href="work.html" id="productionNavLink">Production</a>
+          <a href="team.html" id="teamNavLink">Team</a>
+          <a href="admin.html" id="adminNavLink">Admin</a>
           <a href="contact.html">Contact</a>
           <a href="auth.html" id="authNavLink">Login / Sign Up</a>
         </div>
@@ -145,8 +73,8 @@
   <main class="container">
     <div class="layout">
       <section class="card">
-        <h1>Team Access</h1>
-        <p>Sign in to access the production workspace for pre-production, production, and post-production items.</p>
+        <h1>Account Access</h1>
+        <p>Sign in or create your account to request confidential production/team access.</p>
         <div class="switch">
           <button class="btn active" id="signInModeBtn" type="button">Sign In</button>
           <button class="btn" id="signUpModeBtn" type="button">Sign Up</button>
@@ -157,9 +85,21 @@
           <input id="password" type="password" placeholder="Password (min 6 chars)" required minlength="6" />
           <button class="btn active" id="submitBtn" type="submit">Sign In</button>
         </form>
-        <button class="btn google-btn" id="googleSignInBtn" type="button">Continue with Google</button>
-        <div class="helper">Google account sign-in works after Google provider is enabled in Firebase Authentication.</div>
+        <button class="btn" id="googleSignInBtn" type="button" style="margin-top:12px;">Continue with Google</button>
         <div class="note" id="statusText"></div>
+      </section>
+
+      <section class="card">
+        <h2>Production Access Request</h2>
+        <p>Submit your access request. Once approved, your team PIN will be issued by admin.</p>
+        <div class="status-badge" id="requestState">Status: Not submitted</div>
+        <form id="requestForm">
+          <input id="requestRole" placeholder="Role (editor / producer / intern)" required />
+          <textarea id="requestReason" placeholder="Why you need access" required></textarea>
+          <button class="btn active" type="submit">Submit Request</button>
+          <button class="btn" id="continueBtn" type="button">Continue to Requested Page</button>
+        </form>
+        <div class="note" id="requestStatus"></div>
       </section>
     </div>
   </main>
@@ -172,9 +112,21 @@
       signInWithPopup,
       signInWithEmailAndPassword
     } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
-    import { auth, firebaseReady, saveMemberProfile } from "./assets/js/firebase-client.js";
+    import {
+      addDoc,
+      collection,
+      query,
+      serverTimestamp,
+      where,
+      getDocs,
+      limit
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { auth, db, firebaseReady, saveMemberProfile } from "./assets/js/firebase-client.js";
 
     const statusText = document.getElementById("statusText");
+    const requestStatus = document.getElementById("requestStatus");
+    const requestState = document.getElementById("requestState");
+
     const authForm = document.getElementById("authForm");
     const fullName = document.getElementById("fullName");
     const email = document.getElementById("email");
@@ -184,8 +136,14 @@
     const signInModeBtn = document.getElementById("signInModeBtn");
     const signUpModeBtn = document.getElementById("signUpModeBtn");
 
-    const next = new URLSearchParams(window.location.search).get("next") || "team.html";
+    const requestForm = document.getElementById("requestForm");
+    const requestRole = document.getElementById("requestRole");
+    const requestReason = document.getElementById("requestReason");
+    const continueBtn = document.getElementById("continueBtn");
+
+    const next = new URLSearchParams(window.location.search).get("next") || "index.html";
     let mode = "signin";
+    let currentUser = null;
 
     function setMode(nextMode) {
       mode = nextMode;
@@ -198,14 +156,57 @@
       statusText.textContent = "";
     }
 
-    if (!firebaseReady || !auth) {
-      statusText.textContent = "Authentication is temporarily unavailable. Please contact the site admin.";
-      authForm.querySelectorAll("input,button").forEach((el) => el.disabled = true);
-      googleSignInBtn.disabled = true;
+    async function refreshRequestState(uid) {
+      if (!uid || !db) {
+        requestState.textContent = "Status: Sign in required";
+        return;
+      }
+
+      try {
+        const q = query(
+          collection(db, "accessRequests"),
+          where("uid", "==", uid),
+          limit(20)
+        );
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          requestState.textContent = "Status: Not submitted";
+          return;
+        }
+
+        const latest = snap.docs
+          .map((docRow) => docRow.data())
+          .sort((a, b) => {
+            const aSec = a.createdAt?.seconds || 0;
+            const bSec = b.createdAt?.seconds || 0;
+            return bSec - aSec;
+          })[0];
+        const status = (latest.status || "pending").toLowerCase();
+        requestState.textContent = `Status: ${status.charAt(0).toUpperCase()}${status.slice(1)}`;
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          requestState.textContent = "Status: Firestore blocked";
+          requestStatus.textContent = "Firestore rules are blocking accessRequests.";
+          return;
+        }
+        requestState.textContent = "Status: Unknown";
+      }
+    }
+
+    if (!firebaseReady || !auth || !db) {
+      statusText.textContent = "Authentication temporarily unavailable.";
+      authForm.querySelectorAll("input,button").forEach((el) => { el.disabled = true; });
+      requestForm.querySelectorAll("input,button,textarea").forEach((el) => { el.disabled = true; });
     } else {
-      onAuthStateChanged(auth, (user) => {
+      onAuthStateChanged(auth, async (user) => {
+        currentUser = user;
         if (user) {
-          window.location.href = next;
+          await saveMemberProfile(user, "");
+          await refreshRequestState(user.uid);
+          requestStatus.textContent = "Signed in. You can submit/update your request.";
+        } else {
+          requestState.textContent = "Status: Sign in required";
+          requestStatus.textContent = "Sign in before submitting a request.";
         }
       });
     }
@@ -222,32 +223,61 @@
         if (mode === "signup") {
           const cred = await createUserWithEmailAndPassword(auth, email.value.trim(), password.value.trim());
           await saveMemberProfile(cred.user, fullName.value.trim());
-          statusText.textContent = "Account created. Redirecting...";
-          window.location.href = next;
+          statusText.textContent = "Account created.";
           return;
         }
 
         const cred = await signInWithEmailAndPassword(auth, email.value.trim(), password.value.trim());
         await saveMemberProfile(cred.user, "");
-        statusText.textContent = "Signed in. Redirecting...";
-        window.location.href = next;
+        statusText.textContent = "Signed in.";
       } catch (err) {
         statusText.textContent = err.message || "Authentication failed.";
       }
     });
 
     googleSignInBtn.addEventListener("click", async () => {
-      if (!auth) return;
       statusText.textContent = "Opening Google sign-in...";
       try {
         const provider = new GoogleAuthProvider();
         const cred = await signInWithPopup(auth, provider);
         await saveMemberProfile(cred.user, cred.user.displayName || "");
-        statusText.textContent = "Signed in with Google. Redirecting...";
-        window.location.href = next;
+        statusText.textContent = "Signed in with Google.";
       } catch (err) {
         statusText.textContent = err.message || "Google sign-in failed.";
       }
+    });
+
+    requestForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!currentUser) {
+        requestStatus.textContent = "Sign in first.";
+        return;
+      }
+
+      requestStatus.textContent = "Submitting request...";
+      try {
+        await addDoc(collection(db, "accessRequests"), {
+          uid: currentUser.uid,
+          email: currentUser.email || "",
+          requestedRole: requestRole.value.trim(),
+          reason: requestReason.value.trim(),
+          status: "pending",
+          createdAt: serverTimestamp()
+        });
+        requestStatus.textContent = "Request submitted.";
+        requestForm.reset();
+        await refreshRequestState(currentUser.uid);
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          requestStatus.textContent = "Request blocked by Firestore rules.";
+          return;
+        }
+        requestStatus.textContent = err.message || "Failed to submit request.";
+      }
+    });
+
+    continueBtn.addEventListener("click", () => {
+      window.location.href = next;
     });
   </script>
   <script type="module" src="assets/js/nav-auth.js"></script>

@@ -1,0 +1,101 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner() {
+      return isSignedIn() &&
+        request.auth.token.email in [
+          "visynicofficial@gmail.com",
+          "himanshusharmaaofficial@gmail.com"
+        ];
+    }
+
+    function isSelf(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isApprovedTeamMember() {
+      return isSignedIn() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.teamApproved == true;
+    }
+
+    function selfUpdateAllowed() {
+      return request.resource.data.uid == request.auth.uid &&
+        request.resource.data.email == request.auth.token.email &&
+        request.resource.data.memberId == resource.data.memberId &&
+        request.resource.data.role == resource.data.role &&
+        request.resource.data.teamApproved == resource.data.teamApproved &&
+        request.resource.data.teamPinHash == resource.data.teamPinHash;
+    }
+
+    match /users/{userId} {
+      allow read: if isSelf(userId) || isOwner() || (
+        isApprovedTeamMember() &&
+        resource.data.teamApproved == true
+      );
+
+      // New profile bootstrap from client on first sign in.
+      allow create: if isSelf(userId) &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.email == request.auth.token.email;
+
+      // Member can update their own profile fields, but not approval/pin/role/memberId.
+      allow update: if (isSelf(userId) && selfUpdateAllowed()) || isOwner();
+
+      allow delete: if isOwner();
+    }
+
+    match /accessRequests/{requestId} {
+      // Member can create only for self.
+      allow create: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.email == request.auth.token.email;
+
+      // Member reads own requests; owner reads all.
+      allow read: if isOwner() || (isSignedIn() && resource.data.uid == request.auth.uid);
+
+      // Only owner can approve/reject.
+      allow update, delete: if isOwner();
+    }
+
+    match /teamItems/{itemId} {
+      // Confidential team board.
+      allow read, create: if isApprovedTeamMember();
+      allow update, delete: if isOwner();
+    }
+
+    match /memberTasks/{taskId} {
+      allow read: if isOwner() || (
+        isApprovedTeamMember() &&
+        resource.data.assigneeUid == request.auth.uid
+      );
+      allow create: if isOwner() || isApprovedTeamMember();
+      allow update: if isOwner() || (
+        isApprovedTeamMember() &&
+        resource.data.assigneeUid == request.auth.uid
+      );
+      allow delete: if isOwner();
+    }
+
+    match /productionTasks/{taskId} {
+      allow read, create: if isApprovedTeamMember();
+      allow update: if isApprovedTeamMember();
+      allow delete: if isOwner();
+    }
+
+    match /productionTaskUpdates/{updateId} {
+      allow read, create: if isApprovedTeamMember();
+      allow update, delete: if isOwner();
+    }
+
+    match /contactMessages/{messageId} {
+      // Public contact form submission.
+      allow create: if true;
+      // Only owner can read/manage messages.
+      allow read, update, delete: if isOwner();
+    }
+  }
+}

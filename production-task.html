@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VISYNIC | Production Task</title>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+    :root{--bg:#070a12;--card:#0d1324;--text:#e8ecff;--muted:#a7b0d6;--accent:#4a7dff;--accent2:#ff3d57;--border:rgba(255,255,255,.10);--font-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--font-heading:"Space Grotesk","Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+    *{box-sizing:border-box}html,body{margin:0;padding:0;font-family:var(--font-body);color:var(--text);background:radial-gradient(1200px 700px at 10% 10%,rgba(74,125,255,.22),transparent 55%),radial-gradient(900px 600px at 90% 25%,rgba(255,61,87,.18),transparent 55%),repeating-linear-gradient(120deg,rgba(255,255,255,.035)0,rgba(255,255,255,.035)1px,transparent 1px,transparent 32px),var(--bg)}
+    a{color:inherit;text-decoration:none}.container{width:min(1100px,92vw);margin:0 auto}
+    nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(7,10,18,.55);border-bottom:1px solid var(--border)}.nav-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.6px;font-family:var(--font-heading)}.dot{width:10px;height:10px;border-radius:99px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 30px rgba(74,125,255,.45)}
+    .nav-links{display:flex;gap:18px;align-items:center;font-weight:600;color:var(--muted)}.nav-links a{padding:8px 10px;border-radius:12px}.nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
+    main{padding:24px 0 48px}.card{background:rgba(13,19,36,.6);border:1px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px}
+    h1,h2,h3{font-family:var(--font-heading);margin:0 0 10px}p{margin:0;color:var(--muted)}
+    .meta{display:flex;gap:10px;flex-wrap:wrap}.pill{display:inline-flex;padding:4px 9px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
+    form{display:grid;grid-template-columns:1fr auto;gap:8px}input,button{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-weight:600}
+    button{cursor:pointer;background:linear-gradient(135deg,rgba(74,125,255,.95),rgba(255,61,87,.9));font-weight:800}
+    .update{border:1px solid var(--border);border-radius:12px;padding:10px;background:rgba(255,255,255,.03);margin-bottom:8px}.status{min-height:18px;color:var(--muted);font-size:13px;font-weight:700}
+    .pin-wrap{max-width:520px;margin:26px auto}.pin-form{display:grid;gap:10px;margin-top:12px}
+    @media (max-width:900px){form{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <nav><div class="container"><div class="nav-inner"><div class="brand"><div class="dot"></div><div>VISYNIC</div></div><div class="nav-links"><a href="index.html">Home</a><a href="work.html" id="productionNavLink">Production</a><a href="team.html" id="teamNavLink">Team</a><a href="admin.html" id="adminNavLink">Admin</a><a href="contact.html">Contact</a><a href="auth.html" id="authNavLink">Login / Sign Up</a></div></div></div></nav>
+
+  <main class="container">
+    <section class="card pin-wrap" id="accessGate">
+      <h2>Task Page Verification</h2>
+      <p id="gateMessage">Verifying your access...</p>
+      <form class="pin-form" id="pinForm" hidden>
+        <input id="pinInput" type="password" placeholder="Enter your team PIN" required />
+        <button type="submit">Open Task Page</button>
+      </form>
+      <div class="status" id="gateStatus"></div>
+    </section>
+
+    <section id="workspace" hidden>
+      <section class="card">
+        <h1 id="taskTitle">Task</h1>
+        <div class="meta"><span class="pill" id="taskStage">stage</span><span class="pill" id="taskPriority">priority</span><span class="pill" id="taskState">status</span></div>
+      </section>
+
+      <section class="card">
+        <h2>Progress Updates</h2>
+        <form id="updateForm">
+          <input id="updateText" placeholder="Add update, blocker, or handoff note" required />
+          <button type="submit">Add Update</button>
+        </form>
+        <div class="status" id="updateStatus"></div>
+        <div id="updateList" style="margin-top:10px;"></div>
+      </section>
+    </section>
+  </main>
+
+  <script type="module">
+    import { addDoc, collection, doc, getDoc, onSnapshot, orderBy, query, serverTimestamp, where } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { auth, db, firebaseReady } from "./assets/js/firebase-client.js";
+    import { ensureTeamAccess } from "./assets/js/team-access.js";
+
+    const params = new URLSearchParams(window.location.search);
+    const taskId = params.get("id");
+
+    const accessGate = document.getElementById("accessGate");
+    const gateMessage = document.getElementById("gateMessage");
+    const gateStatus = document.getElementById("gateStatus");
+    const pinForm = document.getElementById("pinForm");
+    const pinInput = document.getElementById("pinInput");
+
+    const workspace = document.getElementById("workspace");
+    const taskTitle = document.getElementById("taskTitle");
+    const taskStage = document.getElementById("taskStage");
+    const taskPriority = document.getElementById("taskPriority");
+    const taskState = document.getElementById("taskState");
+
+    const updateForm = document.getElementById("updateForm");
+    const updateText = document.getElementById("updateText");
+    const updateStatus = document.getElementById("updateStatus");
+    const updateList = document.getElementById("updateList");
+
+    let activeUser = null;
+
+    function unlock() { accessGate.hidden = true; workspace.hidden = false; }
+
+    async function bindTask() {
+      if (!taskId) {
+        taskTitle.textContent = "Missing task id";
+        return;
+      }
+
+      const snap = await getDoc(doc(db, "productionTasks", taskId));
+      if (!snap.exists()) {
+        taskTitle.textContent = "Task not found";
+        return;
+      }
+      const t = snap.data();
+      taskTitle.textContent = t.title || "Untitled Task";
+      taskStage.textContent = `Stage: ${t.stage || "planning"}`;
+      taskPriority.textContent = `Priority: ${t.priority || "normal"}`;
+      taskState.textContent = `Status: ${t.status || "open"}`;
+
+      const updatesQ = query(collection(db, "productionTaskUpdates"), where("taskId", "==", taskId), orderBy("createdAt", "desc"));
+      onSnapshot(updatesQ, (rows) => {
+        updateList.innerHTML = "";
+        if (rows.empty) {
+          updateList.innerHTML = '<p class="status">No updates yet.</p>';
+          return;
+        }
+        rows.docs.forEach((row) => {
+          const u = row.data();
+          const el = document.createElement("article");
+          el.className = "update";
+          const when = u.createdAt?.toDate ? u.createdAt.toDate().toLocaleString() : "Now";
+          el.innerHTML = `<b>${u.text || ""}</b><div class='status'>${u.by || "member"} | ${when}</div>`;
+          updateList.appendChild(el);
+        });
+      });
+    }
+
+    async function boot(user) {
+      activeUser = user;
+      await bindTask();
+      updateForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (!taskId) return;
+        updateStatus.textContent = "Saving update...";
+        try {
+          await addDoc(collection(db, "productionTaskUpdates"), {
+            taskId,
+            text: updateText.value.trim(),
+            by: activeUser.email || "member",
+            byUid: activeUser.uid,
+            createdAt: serverTimestamp()
+          });
+          updateForm.reset();
+          updateStatus.textContent = "Saved.";
+        } catch (err) {
+          updateStatus.textContent = err?.message || "Failed to save update.";
+        }
+      });
+    }
+
+    const access = await ensureTeamAccess(`production-task.html${window.location.search || ""}`);
+    if (access.ok) {
+      unlock();
+      await boot(access.user);
+    } else if (access.reason === "not-approved") {
+      gateMessage.textContent = "Your account is not approved yet.";
+    } else if (access.reason === "pin-required") {
+      gateMessage.textContent = "Enter your team PIN.";
+      pinForm.hidden = false;
+      pinForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        gateStatus.textContent = "Checking PIN...";
+        const ok = await access.verifyPin(pinInput.value);
+        if (!ok) { gateStatus.textContent = "Invalid PIN."; return; }
+        unlock();
+        await boot(access.user);
+      });
+    } else {
+      gateMessage.textContent = "Task access unavailable.";
+    }
+
+    if (!firebaseReady || !auth || !db) {
+      gateMessage.textContent = "Services unavailable.";
+      updateForm.querySelectorAll("input,button").forEach((el) => { el.disabled = true; });
+    }
+  </script>
+  <script type="module" src="assets/js/nav-auth.js"></script>
+</body>
+</html>

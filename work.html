@@ -3,187 +3,466 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VISYNIC | Work</title>
-  <meta name="description" content="VISYNIC work and portfolio projects." />
+  <title>VISYNIC | Production OS</title>
+  <meta name="description" content="VISYNIC confidential production operating system." />
   <style>
-    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&family=Space+Grotesk:wght@500;700&display=swap");
-
-    :root{
-      --bg:#070a12;
-      --card:#0d1324;
-      --text:#e8ecff;
-      --muted:#a7b0d6;
-      --accent:#4a7dff;
-      --accent2:#ff3d57;
-      --border: rgba(255,255,255,0.10);
-      --shadow: 0 18px 40px rgba(0,0,0,0.55);
-      --font-body: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      --font-heading: "Space Grotesk", "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+    :root{--bg:#070a12;--card:#0d1324;--text:#e8ecff;--muted:#a7b0d6;--accent:#4a7dff;--accent2:#ff3d57;--border:rgba(255,255,255,.10);--ok:#3bd68c;--warn:#ffb347;--font-body:"Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--font-heading:"Space Grotesk","Manrope",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;font-family:var(--font-body);background: radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%),
-      radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%),
-      repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px),
-      var(--bg);
-      color:var(--text);
-      scroll-behavior:smooth;
-    }
+    html,body{margin:0;padding:0;font-family:var(--font-body);color:var(--text);background:radial-gradient(1200px 700px at 10% 10%,rgba(74,125,255,.22),transparent 55%),radial-gradient(900px 600px at 90% 25%,rgba(255,61,87,.18),transparent 55%),repeating-linear-gradient(120deg,rgba(255,255,255,.035)0,rgba(255,255,255,.035)1px,transparent 1px,transparent 32px),var(--bg)}
     a{color:inherit;text-decoration:none}
-    .container{width:min(1100px, 92vw); margin:0 auto;}
+    .container{width:min(1320px,94vw);margin:0 auto}
 
-    nav{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(16px);
-      background: rgba(7,10,18,0.55);
-      border-bottom:1px solid var(--border);
-    }
-    .nav-inner{
-      display:flex; align-items:center; justify-content:space-between;
-      padding:14px 0;
-    }
-    .brand{
-      display:flex; gap:10px; align-items:center;
-      font-weight:800; letter-spacing:0.6px;
-      font-family: var(--font-heading);
-    }
-    .dot{
-      width:10px;height:10px;border-radius:99px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 30px rgba(74,125,255,0.45);
-    }
-    .nav-links{display:flex; gap:18px; align-items:center; font-weight:600; color:var(--muted)}
+    nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(7,10,18,.55);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;justify-content:space-between;align-items:center;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.6px;font-family:var(--font-heading)}
+    .dot{width:10px;height:10px;border-radius:99px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 30px rgba(74,125,255,.45)}
+    .nav-links{display:flex;gap:18px;align-items:center;font-weight:600;color:var(--muted)}
     .nav-links a{padding:8px 10px;border-radius:12px}
-    .nav-links a:hover{background: rgba(255,255,255,0.06); color:var(--text)}
-    .cta{
-      padding:10px 14px; border-radius:14px;
-      background: linear-gradient(135deg, rgba(74,125,255,0.95), rgba(255,61,87,0.9));
-      border:0; color:white; font-weight:800;
-      cursor:pointer;
-      box-shadow: 0 14px 30px rgba(74,125,255,0.18);
-      transition: transform .15s ease;
-    }
-    .cta:hover{transform: translateY(-1px)}
+    .nav-links a:hover{background:rgba(255,255,255,.06);color:var(--text)}
 
-    header{padding:60px 0 24px}
-    h1{margin:0 0 8px; font-family:var(--font-heading)}
-    h2, h3{font-family: var(--font-heading)}
-    .subtitle{color:var(--muted); max-width:70ch; line-height:1.6}
+    main{padding:20px 0 48px}
+    .card{background:rgba(13,19,36,.6);border:1px solid var(--border);border-radius:18px;padding:14px}
+    h1,h2,h3{font-family:var(--font-heading);margin:0 0 10px}
+    p{margin:0;color:var(--muted);line-height:1.6}
 
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-      margin:20px 0 40px;
-    }
-    .card{
-      background: rgba(13,19,36,0.6);
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding:18px;
-      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-    }
-    .tag{
-      display:inline-block;
-      padding:6px 10px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,0.04);
-      color:var(--muted);
-      font-weight:800;
-      font-size:12px;
-      margin-bottom:10px;
-    }
-    .card h3{margin:0 0 6px; font-size:16px}
-    .card p{margin:0; color:var(--muted); line-height:1.6; font-size:13.5px}
+    .pin-wrap{max-width:560px;margin:30px auto}
+    .pin-form{display:grid;gap:10px;margin-top:12px}
+    .status{min-height:18px;color:var(--muted);font-size:13px;font-weight:700}
 
-    @media (max-width: 900px){
-      .grid{grid-template-columns:1fr}
-    }
+    .os{display:grid;grid-template-columns:260px 1fr;gap:14px}
+    .sidebar{position:sticky;top:76px;height:calc(100vh - 94px);overflow:auto}
+    .side-group{margin-bottom:12px}
+    .side-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+    .side-link{display:block;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.03);color:var(--muted);margin-bottom:8px}
+    .side-link:hover{background:rgba(255,255,255,.06);color:var(--text)}
+
+    .stack{display:grid;gap:12px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
+    .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .stat{border:1px solid var(--border);border-radius:12px;padding:10px;background:rgba(255,255,255,.03)}
+    .stat b{display:block;font-size:22px;line-height:1}
+    .stat small{color:var(--muted)}
+
+    .tool-row{display:grid;grid-template-columns:1.1fr .7fr .7fr .7fr auto;gap:8px}
+    .task-form{display:grid;grid-template-columns:1.3fr .9fr .8fr .9fr auto;gap:8px;margin-top:10px}
+    input,select,button,textarea{width:100%;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);font-weight:600}
+    button{cursor:pointer;background:linear-gradient(135deg,rgba(74,125,255,.95),rgba(255,61,87,.9));font-weight:800}
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+    .tab{width:auto;padding:8px 12px;background:rgba(255,255,255,.05)}
+    .tab.active{background:linear-gradient(135deg,rgba(74,125,255,.95),rgba(74,125,255,.55))}
+
+    .view{display:none}
+    .view.show{display:block}
+    table{width:100%;border-collapse:collapse}
+    th,td{padding:10px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+    th{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    .pill{display:inline-flex;padding:4px 9px;border-radius:999px;border:1px solid var(--border);font-size:12px;color:var(--muted)}
+
+    .board{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+    .lane{border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.03);padding:10px;min-height:220px}
+    .lane h3{font-size:14px;margin-bottom:8px}
+    .task-card{border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.03);padding:9px;margin-bottom:8px}
+    .task-card b{display:block;font-size:13px;margin-bottom:4px}
+
+    .timeline{display:grid;gap:8px}
+    .time-item{border:1px solid var(--border);border-radius:12px;padding:10px;background:rgba(255,255,255,.03);display:flex;justify-content:space-between;gap:12px}
+
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .doc-list,.asset-list,.activity-list{display:grid;gap:8px}
+    .doc,.asset,.act{border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.03);padding:10px}
+
+    .muted{color:var(--muted)}
+    .ok{color:var(--ok)}
+    .warn{color:var(--warn)}
+
+    @media (max-width:1180px){.os{grid-template-columns:1fr}.sidebar{position:static;height:auto}.hero,.two,.board{grid-template-columns:1fr}.tool-row,.task-form{grid-template-columns:1fr}}
   </style>
 </head>
-
 <body>
   <nav>
     <div class="container">
       <div class="nav-inner">
-        <div class="brand">
-          <div class="dot"></div>
-          <div>VISYNIC</div>
-        </div>
-
+        <div class="brand"><div class="dot"></div><div>VISYNIC</div></div>
         <div class="nav-links">
           <a href="index.html">Home</a>
-          <a href="work.html">Projects</a>
-          <a href="team.html" id="teamNavLink">Production Team</a>
+          <a href="work.html" id="productionNavLink">Production</a>
+          <a href="team.html" id="teamNavLink">Team</a>
+          <a href="admin.html" id="adminNavLink">Admin</a>
           <a href="contact.html">Contact</a>
           <a href="auth.html" id="authNavLink">Login / Sign Up</a>
-        </div>
-
-        <div style="display:flex; gap:10px; align-items:center;">
-          <button class="cta" onclick="location.href='contact.html'">Hire VISYNIC</button>
         </div>
       </div>
     </div>
   </nav>
 
-  <header class="container">
-    <h1>Projects</h1>
-    <p class="subtitle">
-      A curated mix of edits, cinematic reels, and high-retention shorts.
-      Replace these project titles with your real work.
-    </p>
-  </header>
-
   <main class="container">
-    <div class="grid">
-      <div class="card">
-        <div class="tag">Artist</div>
-        <h3>JHALAWAR BARS</h3>
-        <p>Full edit with tight pacing, bold grading, and clean audio mix.</p>
+    <section class="card pin-wrap" id="accessGate">
+      <h2>Production Verification</h2>
+      <p id="gateMessage">Verifying your access...</p>
+      <form class="pin-form" id="pinForm" hidden>
+        <input id="pinInput" type="password" placeholder="Enter your team PIN" required />
+        <button type="submit">Unlock Production OS</button>
+      </form>
+      <div class="status" id="gateStatus"></div>
+    </section>
+
+    <section class="os" id="workspace" hidden>
+      <aside class="sidebar card">
+        <div class="side-group">
+          <div class="side-label">Production OS</div>
+          <a class="side-link" href="#overview">Overview</a>
+          <a class="side-link" href="#database">Task Database</a>
+          <a class="side-link" href="#docs">Production Docs</a>
+          <a class="side-link" href="#assets">Asset Vault</a>
+          <a class="side-link" href="#activity">Activity Feed</a>
+        </div>
+        <div class="side-group">
+          <div class="side-label">Pages</div>
+          <a class="side-link" href="team.html">Team Hub</a>
+          <a class="side-link" href="member.html">Member Workspace</a>
+          <a class="side-link" href="production-task.html">Task Detail Template</a>
+        </div>
+      </aside>
+
+      <div class="stack">
+        <section class="hero" id="overview">
+          <div class="card">
+            <h1>Production Operating System</h1>
+            <p>Notion-style large workspace for planning, shoot operations, post pipeline, docs, and delivery tracking.</p>
+            <div class="task-form">
+              <input id="taskTitle" placeholder="New task title" required />
+              <select id="taskStage"><option value="planning">Planning</option><option value="shoot">Shoot</option><option value="post">Post</option><option value="delivery">Delivery</option></select>
+              <select id="taskPriority"><option value="normal">Normal</option><option value="high">High</option><option value="critical">Critical</option></select>
+              <input id="taskDue" type="date" />
+              <button id="createTaskBtn" type="button">Create Task</button>
+            </div>
+            <div class="status" id="taskStatus"></div>
+          </div>
+          <div class="card stats">
+            <div class="stat"><small>Total Tasks</small><b id="statTotal">0</b></div>
+            <div class="stat"><small>Open</small><b id="statOpen">0</b></div>
+            <div class="stat"><small>Critical</small><b id="statCritical">0</b></div>
+            <div class="stat"><small>Due This Week</small><b id="statWeek">0</b></div>
+          </div>
+        </section>
+
+        <section class="card" id="database">
+          <h2>Task Database</h2>
+          <div class="tool-row">
+            <input id="searchInput" placeholder="Search tasks, stage, priority..." />
+            <select id="filterStage"><option value="all">All Stages</option><option value="planning">Planning</option><option value="shoot">Shoot</option><option value="post">Post</option><option value="delivery">Delivery</option></select>
+            <select id="filterPriority"><option value="all">All Priorities</option><option value="normal">Normal</option><option value="high">High</option><option value="critical">Critical</option></select>
+            <select id="filterStatus"><option value="all">All Status</option><option value="open">Open</option><option value="in_progress">In Progress</option><option value="done">Done</option></select>
+            <button id="clearFilters" type="button">Reset</button>
+          </div>
+
+          <div class="tabs">
+            <button class="tab active" data-view="tableView" type="button">Table View</button>
+            <button class="tab" data-view="boardView" type="button">Board View</button>
+            <button class="tab" data-view="timelineView" type="button">Timeline View</button>
+          </div>
+
+          <div class="view show" id="tableView">
+            <table>
+              <thead><tr><th>Title</th><th>Stage</th><th>Priority</th><th>Status</th><th>Due</th><th>Task Page</th></tr></thead>
+              <tbody id="taskRows"></tbody>
+            </table>
+          </div>
+
+          <div class="view" id="boardView">
+            <div class="board">
+              <div class="lane"><h3>Planning</h3><div id="lanePlanning"></div></div>
+              <div class="lane"><h3>Shoot</h3><div id="laneShoot"></div></div>
+              <div class="lane"><h3>Post</h3><div id="lanePost"></div></div>
+              <div class="lane"><h3>Delivery</h3><div id="laneDelivery"></div></div>
+            </div>
+          </div>
+
+          <div class="view" id="timelineView">
+            <div class="timeline" id="timelineList"></div>
+          </div>
+        </section>
+
+        <section class="two" id="docs">
+          <div class="card">
+            <h2>Production Docs</h2>
+            <div class="doc-list">
+              <div class="doc"><b>Pre-Production Checklist</b><p>Shot list, location lock, talent call sheet, props.</p></div>
+              <div class="doc"><b>Shoot Day SOP</b><p>Camera cards, audio sync, backup cycle, slate protocol.</p></div>
+              <div class="doc"><b>Post Pipeline SOP</b><p>Ingest, proxies, rough cut, sound mix, color, QC, export.</p></div>
+              <div class="doc"><b>Delivery Standards</b><p>Master formats, aspect ratios, naming convention, archive.</p></div>
+            </div>
+          </div>
+          <div class="card" id="assets">
+            <h2>Asset Vault</h2>
+            <div class="asset-list">
+              <div class="asset"><b>Brand Kit</b><p>Logos, lower-thirds, font packs, LUT references.</p></div>
+              <div class="asset"><b>Project Folders</b><p>Footage, audio, graphics, exports, client feedback.</p></div>
+              <div class="asset"><b>Music + SFX Library</b><p>Licensed stems, impact FX, risers, transitions.</p></div>
+              <div class="asset"><b>Master Templates</b><p>Reel openers, subtitle styles, end cards, credits.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card" id="activity">
+          <h2>Recent Activity</h2>
+          <div class="activity-list" id="activityList"></div>
+        </section>
       </div>
-      <div class="card">
-        <div class="tag">Reels</div>
-        <h3>City Lights</h3>
-        <p>Cinematic reel designed for retention and premium feel.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Shorts</div>
-        <h3>Hook Series</h3>
-        <p>Fast cuts, caption flow, and rhythm-driven edits.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Studio</div>
-        <h3>Session Recap</h3>
-        <p>Behind-the-scenes storytelling with polished sound.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Performance</div>
-        <h3>Stage Cut</h3>
-        <p>Live energy, crisp camera pacing, and punchy color.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Brand</div>
-        <h3>Launch Visuals</h3>
-        <p>Clean typography and motion graphics for product drops.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Cinematic</div>
-        <h3>Night Drive</h3>
-        <p>Moody grades and rhythmic cuts for storytelling.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Typography</div>
-        <h3>Lyric Visuals</h3>
-        <p>Clean typography and motion timing for key moments.</p>
-      </div>
-      <div class="card">
-        <div class="tag">Social</div>
-        <h3>Artist Promo</h3>
-        <p>Short-form promo clips with hook-first structure.</p>
-      </div>
-    </div>
+    </section>
   </main>
+
+  <script type="module">
+    import { addDoc, collection, doc, onSnapshot, orderBy, query, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { auth, db, firebaseReady } from "./assets/js/firebase-client.js";
+    import { ensureTeamAccess } from "./assets/js/team-access.js";
+
+    const accessGate = document.getElementById("accessGate");
+    const gateMessage = document.getElementById("gateMessage");
+    const gateStatus = document.getElementById("gateStatus");
+    const pinForm = document.getElementById("pinForm");
+    const pinInput = document.getElementById("pinInput");
+    const workspace = document.getElementById("workspace");
+
+    const createTaskBtn = document.getElementById("createTaskBtn");
+    const taskTitle = document.getElementById("taskTitle");
+    const taskStage = document.getElementById("taskStage");
+    const taskPriority = document.getElementById("taskPriority");
+    const taskDue = document.getElementById("taskDue");
+    const taskStatus = document.getElementById("taskStatus");
+
+    const searchInput = document.getElementById("searchInput");
+    const filterStage = document.getElementById("filterStage");
+    const filterPriority = document.getElementById("filterPriority");
+    const filterStatus = document.getElementById("filterStatus");
+    const clearFilters = document.getElementById("clearFilters");
+
+    const taskRows = document.getElementById("taskRows");
+    const timelineList = document.getElementById("timelineList");
+    const lanePlanning = document.getElementById("lanePlanning");
+    const laneShoot = document.getElementById("laneShoot");
+    const lanePost = document.getElementById("lanePost");
+    const laneDelivery = document.getElementById("laneDelivery");
+
+    const statTotal = document.getElementById("statTotal");
+    const statOpen = document.getElementById("statOpen");
+    const statCritical = document.getElementById("statCritical");
+    const statWeek = document.getElementById("statWeek");
+
+    const activityList = document.getElementById("activityList");
+
+    const tabs = document.querySelectorAll(".tab");
+    const views = document.querySelectorAll(".view");
+
+    let activeUser = null;
+    let allTasks = [];
+
+    const lanes = { planning: lanePlanning, shoot: laneShoot, post: lanePost, delivery: laneDelivery };
+
+    function unlock() { accessGate.hidden = true; workspace.hidden = false; }
+
+    function formatDate(dateValue) {
+      if (!dateValue) return "-";
+      if (typeof dateValue === "string") return dateValue;
+      if (dateValue?.toDate) return dateValue.toDate().toLocaleDateString();
+      return "-";
+    }
+
+    function dueWithinWeek(dateStr) {
+      if (!dateStr) return false;
+      const due = new Date(dateStr);
+      if (Number.isNaN(due.getTime())) return false;
+      const now = new Date();
+      const in7 = new Date();
+      in7.setDate(now.getDate() + 7);
+      return due >= now && due <= in7;
+    }
+
+    function applyFilters(tasks) {
+      const q = searchInput.value.trim().toLowerCase();
+      return tasks.filter((t) => {
+        const stageOk = filterStage.value === "all" || t.stage === filterStage.value;
+        const priorityOk = filterPriority.value === "all" || t.priority === filterPriority.value;
+        const statusOk = filterStatus.value === "all" || (t.status || "open") === filterStatus.value;
+        const hay = `${t.title || ""} ${t.stage || ""} ${t.priority || ""} ${t.status || ""}`.toLowerCase();
+        const searchOk = !q || hay.includes(q);
+        return stageOk && priorityOk && statusOk && searchOk;
+      });
+    }
+
+    function renderStats(tasks) {
+      statTotal.textContent = String(tasks.length);
+      statOpen.textContent = String(tasks.filter((t) => (t.status || "open") !== "done").length);
+      statCritical.textContent = String(tasks.filter((t) => t.priority === "critical").length);
+      statWeek.textContent = String(tasks.filter((t) => dueWithinWeek(t.dueDate)).length);
+    }
+
+    function renderTable(tasks) {
+      taskRows.innerHTML = "";
+      if (!tasks.length) {
+        taskRows.innerHTML = "<tr><td colspan='6'>No tasks match current filters.</td></tr>";
+        return;
+      }
+      tasks.forEach((t) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td><b>${t.title || "Untitled"}</b></td><td><span class='pill'>${t.stage || "planning"}</span></td><td><span class='pill'>${t.priority || "normal"}</span></td><td><select data-id='${t.id}' class='statusSelect'><option value='open' ${(t.status||"open")==="open"?"selected":""}>Open</option><option value='in_progress' ${(t.status||"open")==="in_progress"?"selected":""}>In Progress</option><option value='done' ${(t.status||"open")==="done"?"selected":""}>Done</option></select></td><td>${formatDate(t.dueDate)}</td><td><a href='production-task.html?id=${t.id}' style='text-decoration:underline'>Open</a></td>`;
+        taskRows.appendChild(tr);
+      });
+
+      document.querySelectorAll(".statusSelect").forEach((el) => {
+        el.addEventListener("change", async (event) => {
+          const id = event.target.getAttribute("data-id");
+          const value = event.target.value;
+          try { await updateDoc(doc(db, "productionTasks", id), { status: value, updatedAt: serverTimestamp() }); }
+          catch (err) { taskStatus.textContent = err?.message || "Status update failed."; }
+        });
+      });
+    }
+
+    function renderBoard(tasks) {
+      Object.values(lanes).forEach((el) => { el.innerHTML = ""; });
+      tasks.forEach((t) => {
+        const lane = lanes[t.stage] || lanes.planning;
+        const card = document.createElement("article");
+        card.className = "task-card";
+        card.innerHTML = `<b>${t.title || "Untitled"}</b><div class='muted'>${t.priority || "normal"} | ${(t.status || "open").replace("_"," ")}</div><div><a href='production-task.html?id=${t.id}' style='text-decoration:underline'>Task page</a></div>`;
+        lane.appendChild(card);
+      });
+    }
+
+    function renderTimeline(tasks) {
+      timelineList.innerHTML = "";
+      const sorted = [...tasks].sort((a, b) => String(a.dueDate || "9999-12-31").localeCompare(String(b.dueDate || "9999-12-31")));
+      if (!sorted.length) {
+        timelineList.innerHTML = "<div class='time-item'><div>No timeline items.</div><div class='muted'>-</div></div>";
+        return;
+      }
+      sorted.forEach((t) => {
+        const item = document.createElement("div");
+        item.className = "time-item";
+        item.innerHTML = `<div><b>${t.title || "Untitled"}</b><div class='muted'>${t.stage || "planning"} | ${t.priority || "normal"}</div></div><div>${formatDate(t.dueDate)}</div>`;
+        timelineList.appendChild(item);
+      });
+    }
+
+    function renderActivity() {
+      const latest = [...allTasks].slice(0, 8);
+      activityList.innerHTML = "";
+      if (!latest.length) {
+        activityList.innerHTML = "<div class='act'>No activity yet.</div>";
+        return;
+      }
+      latest.forEach((t) => {
+        const el = document.createElement("div");
+        el.className = "act";
+        const created = t.createdAt?.toDate ? t.createdAt.toDate().toLocaleString() : "Now";
+        el.innerHTML = `<b>${t.title || "Untitled"}</b><p>${t.stage || "planning"} | ${t.priority || "normal"} | ${(t.status || "open").replace("_"," ")}</p><small class='muted'>${created}</small>`;
+        activityList.appendChild(el);
+      });
+    }
+
+    function rerender() {
+      const filtered = applyFilters(allTasks);
+      renderStats(filtered);
+      renderTable(filtered);
+      renderBoard(filtered);
+      renderTimeline(filtered);
+      renderActivity();
+    }
+
+    function bindRealtime() {
+      const q = query(collection(db, "productionTasks"), orderBy("createdAt", "desc"));
+      onSnapshot(q, (snap) => {
+        allTasks = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+        rerender();
+      });
+    }
+
+    async function createTask() {
+      const title = taskTitle.value.trim();
+      if (!title) {
+        taskStatus.textContent = "Task title is required.";
+        return;
+      }
+      taskStatus.textContent = "Creating task...";
+      try {
+        await addDoc(collection(db, "productionTasks"), {
+          title,
+          stage: taskStage.value,
+          priority: taskPriority.value,
+          status: "open",
+          dueDate: taskDue.value || "",
+          createdByUid: activeUser.uid,
+          createdByEmail: activeUser.email || "",
+          createdAt: serverTimestamp(),
+          updatedAt: serverTimestamp()
+        });
+        taskTitle.value = "";
+        taskDue.value = "";
+        taskStatus.textContent = "Task created.";
+      } catch (err) {
+        taskStatus.textContent = err?.message || "Failed to create task.";
+      }
+    }
+
+    function bindUi() {
+      createTaskBtn.addEventListener("click", createTask);
+      [searchInput, filterStage, filterPriority, filterStatus].forEach((el) => el.addEventListener("input", rerender));
+      clearFilters.addEventListener("click", () => {
+        searchInput.value = "";
+        filterStage.value = "all";
+        filterPriority.value = "all";
+        filterStatus.value = "all";
+        rerender();
+      });
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          views.forEach((v) => v.classList.remove("show"));
+          const target = document.getElementById(tab.getAttribute("data-view"));
+          if (target) target.classList.add("show");
+        });
+      });
+    }
+
+    async function boot(user) {
+      activeUser = user;
+      bindUi();
+      bindRealtime();
+    }
+
+    const access = await ensureTeamAccess("work.html");
+    if (access.ok) {
+      unlock();
+      await boot(access.user);
+    } else if (access.reason === "not-approved") {
+      gateMessage.textContent = "Your account is waiting for team approval.";
+    } else if (access.reason === "pin-required") {
+      gateMessage.textContent = "Enter your team PIN.";
+      pinForm.hidden = false;
+      pinForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        gateStatus.textContent = "Checking PIN...";
+        const ok = await access.verifyPin(pinInput.value);
+        if (!ok) {
+          gateStatus.textContent = "Invalid PIN.";
+          return;
+        }
+        unlock();
+        await boot(access.user);
+      });
+    } else {
+      gateMessage.textContent = "Production access unavailable.";
+    }
+
+    if (!firebaseReady || !auth || !db) {
+      gateMessage.textContent = "Services unavailable.";
+    }
+  </script>
   <script type="module" src="assets/js/nav-auth.js"></script>
 </body>
 </html>

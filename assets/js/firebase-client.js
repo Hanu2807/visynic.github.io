@@ -52,6 +52,8 @@ export async function saveMemberProfile(user, fullName) {
       ...base,
       memberId: randomMemberId(),
       role: "member",
+      teamApproved: false,
+      teamPinHash: "",
       createdAt: serverTimestamp()
     });
   } else {
