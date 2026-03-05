@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VISYNIC | Production Team Access</title>
+  <meta name="description" content="VISYNIC production team access request and verification." />
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap");
+    :root{
+      --bg:#070a12;
+      --card:#0d1324;
+      --text:#e8ecff;
+      --muted:#a7b0d6;
+      --accent:#4a7dff;
+      --accent2:#ff3d57;
+      --border: rgba(255,255,255,0.10);
+      --font-body: "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --font-heading: "Space Grotesk", "Manrope", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:var(--font-body);background: radial-gradient(1200px 700px at 10% 10%, rgba(74,125,255,0.22), transparent 55%), radial-gradient(900px 600px at 90% 25%, rgba(255,61,87,0.18), transparent 55%), repeating-linear-gradient(120deg, rgba(255,255,255,0.035) 0, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 32px), var(--bg); color:var(--text)}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1100px,92vw);margin:0 auto}
+
+    nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(7,10,18,0.55);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:0.6px;font-family:var(--font-heading)}
+    .dot{width:10px;height:10px;border-radius:99px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 30px rgba(74,125,255,0.45)}
+    .nav-links{display:flex;gap:18px;align-items:center;font-weight:600;color:var(--muted)}
+    .nav-links a{padding:8px 10px;border-radius:12px}
+    .nav-links a:hover{background:rgba(255,255,255,0.06);color:var(--text)}
+
+    main{padding:38px 0}
+    .layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .card{background:rgba(13,19,36,0.6);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:0 10px 24px rgba(0,0,0,0.35)}
+    h1,h2{font-family:var(--font-heading);margin:0 0 10px}
+    p{margin:0;color:var(--muted);line-height:1.7}
+    form{display:grid;gap:12px;margin-top:8px}
+    input,textarea{width:100%;padding:12px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.04);color:var(--text);outline:none;font-weight:600}
+    textarea{min-height:120px;resize:vertical}
+    .btn{padding:12px 14px;border-radius:14px;border:1px solid var(--border);background:rgba(255,255,255,0.05);color:var(--text);font-weight:800;cursor:pointer}
+    .btn.active{background:linear-gradient(135deg, rgba(74,125,255,0.95), rgba(255,61,87,0.9))}
+    .note{margin-top:10px;font-size:13px;color:var(--muted);font-weight:700;min-height:20px}
+    .status-badge{display:inline-flex;padding:5px 10px;border-radius:999px;border:1px solid var(--border);font-size:12px;font-weight:700;color:var(--muted);margin-top:8px}
+    .status-block{display:grid;gap:10px;margin-top:8px}
+
+    @media (max-width: 920px){
+      .layout{grid-template-columns:1fr}
+      .nav-links{gap:8px;font-size:14px}
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <div class="brand"><div class="dot"></div><div>VISYNIC</div></div>
+        <div class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="portfolio.html">Portfolio</a>
+          <a href="work.html" id="productionNavLink">Production</a>
+          <a href="team.html" id="teamNavLink">Team</a>
+          <a href="admin.html" id="adminNavLink">Admin</a>
+          <a href="contact.html">Contact</a>
+          <a href="auth.html" id="authNavLink">Login</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="layout">
+      <section class="card" id="requestCard">
+        <h1>Production Team Access</h1>
+        <p>Submit your request for VISYNIC production tools. Admin approval is required before entry.</p>
+        <div class="status-badge" id="requestState">Status: Verifying...</div>
+        <form id="requestForm">
+          <input id="requestRole" placeholder="Role (editor / producer / intern)" required />
+          <textarea id="requestReason" placeholder="Why you need access" required></textarea>
+          <button class="btn active" type="submit">Submit Request</button>
+        </form>
+        <div class="note" id="requestStatus"></div>
+      </section>
+
+      <section class="card" id="continueCard" hidden>
+        <h2>Continue to Production</h2>
+        <p>Approved members can verify PIN and continue into the production workspace.</p>
+        <div class="status-block" id="continuePanel">
+          <p id="continueMessage">Checking access...</p>
+          <form id="pinForm" hidden>
+            <input id="pinInput" type="password" placeholder="Enter your team PIN" required />
+            <button class="btn active" type="submit">Verify PIN & Continue</button>
+          </form>
+          <button class="btn active" id="enterProductionBtn" type="button" hidden>Enter Production Workspace</button>
+          <div class="note" id="continueStatus"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script type="module">
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+    import {
+      addDoc,
+      collection,
+      getDocs,
+      limit,
+      query,
+      serverTimestamp,
+      where
+    } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { auth, db, firebaseReady, saveMemberProfile } from "./assets/js/firebase-client.js";
+    import { ensureTeamAccess } from "./assets/js/team-access.js";
+
+    const requestState = document.getElementById("requestState");
+    const requestCard = document.getElementById("requestCard");
+    const continueCard = document.getElementById("continueCard");
+    const requestForm = document.getElementById("requestForm");
+    const requestRole = document.getElementById("requestRole");
+    const requestReason = document.getElementById("requestReason");
+    const requestStatus = document.getElementById("requestStatus");
+
+    const continueMessage = document.getElementById("continueMessage");
+    const pinForm = document.getElementById("pinForm");
+    const pinInput = document.getElementById("pinInput");
+    const continueStatus = document.getElementById("continueStatus");
+    const enterProductionBtn = document.getElementById("enterProductionBtn");
+
+    let currentUser = null;
+    let currentAccess = null;
+    let latestRequestStatus = "not_submitted";
+
+    enterProductionBtn.addEventListener("click", () => {
+      window.location.href = "work.html";
+    });
+
+    async function refreshRequestState(uid) {
+      if (!uid || !db) {
+        requestState.textContent = "Status: Sign in required";
+        latestRequestStatus = "not_submitted";
+        return;
+      }
+
+      try {
+        const q = query(
+          collection(db, "accessRequests"),
+          where("uid", "==", uid),
+          limit(20)
+        );
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          requestState.textContent = "Status: Not submitted";
+          latestRequestStatus = "not_submitted";
+          return;
+        }
+
+        const latest = snap.docs
+          .map((docRow) => docRow.data())
+          .sort((a, b) => {
+            const aSec = a.createdAt?.seconds || 0;
+            const bSec = b.createdAt?.seconds || 0;
+            return bSec - aSec;
+          })[0];
+        const status = (latest.status || "pending").toLowerCase();
+        latestRequestStatus = status;
+        requestState.textContent = `Status: ${status.charAt(0).toUpperCase()}${status.slice(1)}`;
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          requestState.textContent = "Status: Firestore blocked";
+          requestStatus.textContent = "Firestore rules are blocking accessRequests.";
+          latestRequestStatus = "unknown";
+          return;
+        }
+        requestState.textContent = "Status: Unknown";
+        latestRequestStatus = "unknown";
+      }
+    }
+
+    function showRequestMode() {
+      requestCard.hidden = false;
+      continueCard.hidden = true;
+    }
+
+    function showContinueMode() {
+      requestCard.hidden = true;
+      continueCard.hidden = false;
+    }
+
+    function resetContinueUi() {
+      pinForm.hidden = true;
+      enterProductionBtn.hidden = true;
+      continueStatus.textContent = "";
+    }
+
+    async function syncAccessUi() {
+      resetContinueUi();
+      currentAccess = await ensureTeamAccess("work.html");
+
+      if (currentAccess.ok) {
+        showContinueMode();
+        continueMessage.textContent = "Approved and verified in this session.";
+        enterProductionBtn.hidden = false;
+        return;
+      }
+
+      if (currentAccess.reason === "not-approved") {
+        showRequestMode();
+        if (latestRequestStatus === "pending") {
+          requestStatus.textContent = "Request submitted. Waiting for admin approval.";
+          requestForm.querySelectorAll("input,textarea,button").forEach((el) => { el.disabled = true; });
+        } else {
+          requestStatus.textContent = "";
+          requestForm.querySelectorAll("input,textarea,button").forEach((el) => { el.disabled = false; });
+        }
+        return;
+      }
+
+      if (currentAccess.reason === "pin-required") {
+        showContinueMode();
+        continueMessage.textContent = "Account approved. Enter your team PIN.";
+        pinForm.hidden = false;
+        return;
+      }
+
+      showRequestMode();
+      continueMessage.textContent = "Access unavailable right now.";
+      requestForm.querySelectorAll("input,textarea,button").forEach((el) => { el.disabled = true; });
+    }
+
+    if (!firebaseReady || !auth || !db) {
+      requestStatus.textContent = "Services unavailable.";
+      continueMessage.textContent = "Services unavailable.";
+      requestForm.querySelectorAll("input,textarea,button").forEach((el) => { el.disabled = true; });
+      pinForm.querySelectorAll("input,button").forEach((el) => { el.disabled = true; });
+    } else {
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "auth.html?next=production-access.html";
+          return;
+        }
+
+        currentUser = user;
+        await saveMemberProfile(user, "");
+        await refreshRequestState(user.uid);
+        await syncAccessUi();
+      });
+    }
+
+    requestForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!currentUser) {
+        requestStatus.textContent = "Sign in first.";
+        return;
+      }
+
+      requestStatus.textContent = "Submitting request...";
+      try {
+        await addDoc(collection(db, "accessRequests"), {
+          uid: currentUser.uid,
+          email: currentUser.email || "",
+          requestedRole: requestRole.value.trim(),
+          reason: requestReason.value.trim(),
+          status: "pending",
+          createdAt: serverTimestamp()
+        });
+        requestStatus.textContent = "Request submitted.";
+        requestForm.reset();
+        await refreshRequestState(currentUser.uid);
+        await syncAccessUi();
+      } catch (err) {
+        if (err?.code === "permission-denied") {
+          requestStatus.textContent = "Request blocked by Firestore rules.";
+          return;
+        }
+        requestStatus.textContent = err.message || "Failed to submit request.";
+      }
+    });
+
+    pinForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!currentAccess || currentAccess.reason !== "pin-required" || !currentAccess.verifyPin) {
+        continueStatus.textContent = "PIN check unavailable.";
+        return;
+      }
+
+      continueStatus.textContent = "Checking PIN...";
+      const ok = await currentAccess.verifyPin(pinInput.value);
+      if (!ok) {
+        continueStatus.textContent = "Invalid PIN.";
+        return;
+      }
+      continueStatus.textContent = "PIN verified. Redirecting...";
+      window.setTimeout(() => {
+        window.location.href = "work.html";
+      }, 500);
+    });
+  </script>
+  <script type="module" src="assets/js/nav-auth.js"></script>
+</body>
+</html>

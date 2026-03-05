@@ -55,6 +55,24 @@
     .menu-btn{display:none}
 
     header{padding:70px 0 28px}
+    .top-access-wrap{display:none;justify-content:center;margin:0 0 14px}
+    .top-access-wrap.show{display:flex}
+    .top-access-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px 18px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,0.20);
+      background:#05070d;
+      color:#fff;
+      font-family:var(--font-heading);
+      font-weight:800;
+      font-size:clamp(18px, 2.6vw, 24px);
+      letter-spacing:-0.02em;
+      box-shadow:0 8px 18px rgba(0,0,0,0.45);
+    }
+    .top-access-btn:hover{background:#0a0f1d}
     .hero-card{
       background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
       border:1px solid var(--border);
@@ -167,7 +185,7 @@
           <a href="team.html" id="teamNavLink">Team</a>
           <a href="admin.html" id="adminNavLink">Admin</a>
           <a href="contact.html">Contact</a>
-          <a href="auth.html" id="authNavLink">Login / Sign Up</a>
+          <a href="auth.html" id="authNavLink">Login</a>
         </div>
 
         <button class="menu-btn" id="menuBtn">Menu</button>
@@ -176,6 +194,9 @@
   </nav>
 
   <header class="container">
+    <div class="top-access-wrap" id="homeProductionAccessWrap">
+      <a class="top-access-btn" href="production-access.html" id="homeProductionAccessBtn">Production team access</a>
+    </div>
     <div class="hero-card">
       <div class="hero-content">
         <div class="badge">
@@ -247,7 +268,7 @@
 
     <section id="artist-edits">
       <div class="section-title">
-        <h2>Artist Collab Projects</h2>
+        <h2>Artist Projects</h2>
         <p>YouTube releases</p>
       </div>
       <div class="youtube-grid">
@@ -291,11 +312,6 @@
       navigator.clipboard.writeText(LINKS.email);
     }
 
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
-    if(menuBtn){
-      menuBtn.addEventListener("click", () => navLinks.classList.toggle("show"));
-    }
   </script>
   <script type="module" src="assets/js/nav-auth.js"></script>
 </body>

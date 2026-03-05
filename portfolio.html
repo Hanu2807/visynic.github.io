@@ -51,7 +51,7 @@
           <a href="team.html" id="teamNavLink">Team</a>
           <a href="admin.html" id="adminNavLink">Admin</a>
           <a href="contact.html">Contact</a>
-          <a href="auth.html" id="authNavLink">Login / Sign Up</a>
+          <a href="auth.html" id="authNavLink">Login</a>
         </div>
         <button class="menu-btn" id="menuBtn">Menu</button>
       </div>
@@ -124,13 +124,6 @@
     </section>
   </main>
 
-  <script>
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.querySelector(".nav-links");
-    if(menuBtn && navLinks){
-      menuBtn.addEventListener("click", () => navLinks.classList.toggle("show"));
-    }
-  </script>
   <script type="module" src="assets/js/nav-auth.js"></script>
 </body>
 </html>
