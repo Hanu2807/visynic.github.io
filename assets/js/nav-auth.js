@@ -78,7 +78,7 @@ function injectNavEnhancementStyles() {
     }
     .profile-item:hover { background: rgba(255,255,255,0.08); }
     .profile-item.logout { background: rgba(255,61,87,0.18); border-color: rgba(255,61,87,0.35); }
-    .nav-menu-open { display: flex !important; }
+    .nav-links.nav-menu-open { display: flex !important; }
     @media (max-width: 900px) {
       .menu-btn-dyn { display: inline-flex; }
       .nav-links {
@@ -95,6 +95,7 @@ function injectNavEnhancementStyles() {
         width: min(260px, 92vw);
         z-index: 110;
       }
+      .nav-links.nav-menu-open { display: flex !important; }
       .nav-links a { width: 100%; }
     }
   `;
