@@ -77,7 +77,7 @@ function injectNavEnhancementStyles() {
       display: block;
     }
     .profile-item:hover { background: rgba(255,255,255,0.08); }
-    .profile-item.logout { background: rgba(255,61,87,0.18); border-color: rgba(255,61,87,0.35); }
+    .profile-item.logout { background: rgba(255,92,92,0.18); border-color: rgba(255,92,92,0.35); }
     .nav-links.nav-menu-open { display: flex !important; }
     @media (max-width: 900px) {
       .menu-btn-dyn { display: inline-flex; }
