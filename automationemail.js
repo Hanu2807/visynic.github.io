@@ -4,7 +4,7 @@ const EMAILJS_CONFIG = {
   publicKey: "tdYlntZxC_AnctK8L",
   serviceId: "service_z0byoo6",
   approvalTemplateId: "template_h1evcd5",
-  contactTemplateId: "",
+  contactTemplateId: "template_pom8pv6",
   contactInboxEmail: "visynicofficial@gmail.com",
   fromName: "VISYNIC"
 };
@@ -79,13 +79,15 @@ export async function sendContactBriefEmail({ name, email, message }) {
   initEmailJs();
 
   try {
-    await emailjs.send(cfg.serviceId, cfg.contactTemplateId, {
+    const templateParams = {
       to_email: cfg.contactInboxEmail,
       from_name: name,
       from_email: email,
       message,
       reply_to: email
-    });
+    };
+
+    await emailjs.send(cfg.serviceId, cfg.contactTemplateId, templateParams);
     return { ok: true };
   } catch (error) {
     return {

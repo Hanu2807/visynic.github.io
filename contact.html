@@ -121,7 +121,7 @@
   </main>
 
   <script type="module">
-    import { addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+    import { addDoc, collection, serverTimestamp, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
     import { db, firebaseReady } from "./assets/js/firebase-client.js";
     import { sendContactBriefEmail } from "./automationemail.js";
 
@@ -149,23 +149,38 @@
 
       statusEl.textContent = "Sending...";
       try {
-        const emailResult = await sendContactBriefEmail({ name, email, message });
-        if (!emailResult.ok && emailResult.reason !== "not-configured") {
-          throw new Error(emailResult.error || "Failed to send email.");
-        }
-
-        await addDoc(collection(db, "contactMessages"), {
+        const docRef = await addDoc(collection(db, "contactMessages"), {
           name,
           email,
           message,
-          emailDelivered: Boolean(emailResult.ok),
+          emailDelivered: false,
           status: "new",
           createdAt: serverTimestamp()
         });
+
+        const formData = { name, email, message };
+        const emailResult = await sendContactBriefEmail(formData);
+
+        if (emailResult.ok) {
+          await updateDoc(docRef, {
+            emailDelivered: true,
+            emailError: "",
+            emailUpdatedAt: serverTimestamp()
+          });
+          event.target.reset();
+          statusEl.textContent = "Message sent.";
+          return;
+        }
+
+        const failureReason = emailResult.error || emailResult.reason || "unknown-error";
+        await updateDoc(docRef, {
+          emailDelivered: false,
+          emailError: String(failureReason),
+          emailUpdatedAt: serverTimestamp()
+        });
+        console.error("Contact email send failed:", failureReason);
         event.target.reset();
-        statusEl.textContent = emailResult.ok
-          ? "Message sent."
-          : "Saved. Email forwarding is not configured yet.";
+        statusEl.textContent = `Message saved, but email failed: ${failureReason}`;
       } catch (err) {
         statusEl.textContent = err.message || "Failed to send message.";
       }
