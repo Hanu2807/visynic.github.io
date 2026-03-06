@@ -4,6 +4,8 @@ const EMAILJS_CONFIG = {
   publicKey: "tdYlntZxC_AnctK8L",
   serviceId: "service_z0byoo6",
   approvalTemplateId: "template_h1evcd5",
+  contactTemplateId: "",
+  contactInboxEmail: "visynicofficial@gmail.com",
   fromName: "VISYNIC"
 };
 
@@ -15,6 +17,8 @@ function getConfig() {
     publicKey: runtime.publicKey || EMAILJS_CONFIG.publicKey,
     serviceId: runtime.serviceId || EMAILJS_CONFIG.serviceId,
     approvalTemplateId: runtime.approvalTemplateId || EMAILJS_CONFIG.approvalTemplateId,
+    contactTemplateId: runtime.contactTemplateId || EMAILJS_CONFIG.contactTemplateId,
+    contactInboxEmail: runtime.contactInboxEmail || EMAILJS_CONFIG.contactInboxEmail,
     fromName: runtime.fromName || EMAILJS_CONFIG.fromName
   };
 }
@@ -22,6 +26,11 @@ function getConfig() {
 export function isEmailJsReady() {
   const cfg = getConfig();
   return Boolean(cfg.publicKey && cfg.serviceId && cfg.approvalTemplateId);
+}
+
+export function isContactEmailReady() {
+  const cfg = getConfig();
+  return Boolean(cfg.publicKey && cfg.serviceId && cfg.contactTemplateId && cfg.contactInboxEmail);
 }
 
 function initEmailJs() {
@@ -52,6 +61,31 @@ export async function sendApprovalPinEmail({ toEmail, toName, pin, approvedBy })
       pin: String(pin || "")
     });
 
+    return { ok: true };
+  } catch (error) {
+    return {
+      ok: false,
+      reason: "send-failed",
+      error: error?.text || error?.message || String(error)
+    };
+  }
+}
+
+export async function sendContactBriefEmail({ name, email, message }) {
+  const cfg = getConfig();
+  if (!isContactEmailReady()) return { ok: false, reason: "not-configured" };
+  if (!name || !email || !message) return { ok: false, reason: "missing-fields" };
+
+  initEmailJs();
+
+  try {
+    await emailjs.send(cfg.serviceId, cfg.contactTemplateId, {
+      to_email: cfg.contactInboxEmail,
+      from_name: name,
+      from_email: email,
+      message,
+      reply_to: email
+    });
     return { ok: true };
   } catch (error) {
     return {
